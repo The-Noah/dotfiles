@@ -1,7 +1,31 @@
 {
   "$help": "https://aka.ms/terminal-documentation",
-  "$schema": "https://aka.ms/terminal-profiles-schema-preview",
+  "$schema": "https://aka.ms/terminal-profiles-schema",
   "actions": [
+    {
+      "command": "unbound",
+      "id": "User.splitPane.A6751878",
+      "keys": "alt+shift+d"
+    },
+    {
+      "command": "unbound",
+      "keys": "ctrl+v"
+    },
+    {
+      "command": "unbound",
+      "keys": "ctrl+shift+f"
+    },
+    {
+      "command": "unbound",
+      "keys": "ctrl+c"
+    },
+    {
+      "command": {
+        "action": "copy",
+        "singleLine": false
+      },
+      "id": "User.copy.644BA8F2"
+    },
     {
       "command": "find",
       "id": "User.find"
@@ -17,13 +41,6 @@
     {
       "command": "paste",
       "id": "User.paste"
-    },
-    {
-      "command": {
-        "action": "copy",
-        "singleLine": false
-      },
-      "id": "User.copy.644BA8F2"
     }
   ],
   "centerOnLaunch": true,
@@ -33,24 +50,6 @@
   "firstWindowPreference": "defaultProfile",
   "initialCols": 140,
   "initialRows": 40,
-  "keybindings": [
-    {
-      "id": "User.splitPane.A6751878",
-      "keys": "alt+shift+d"
-    },
-    {
-      "id": "User.paste",
-      "keys": "ctrl+v"
-    },
-    {
-      "id": "User.find",
-      "keys": "ctrl+shift+f"
-    },
-    {
-      "id": "User.copy.644BA8F2",
-      "keys": "ctrl+c"
-    }
-  ],
   "newTabMenu": [
     {
       "type": "remainingProfiles"
@@ -63,6 +62,7 @@
       "backgroundImageStretchMode": "uniformToFill",
       "colorScheme": "One Half Dark",
       "experimental.retroTerminalEffect": false,
+      "experimental.rightClickContextMenu": true,
       "font": {
         "face": "0xProto Nerd Font",
         "size": 9
@@ -102,6 +102,13 @@
         "hidden": false,
         "icon": "C:\\Users\\noah\\Pictures\\_logo\\_current\\logo.png",
         "name": "docker1"
+      },
+      {
+        "commandline": "ssh admin@sol.home",
+        "guid": "{140d84f8-7fa6-4755-8fa8-32800f767f2e}",
+        "hidden": false,
+        "icon": "C:\\Users\\noah\\Pictures\\_logo\\_current\\logo.png",
+        "name": "sol"
       },
       {
         "guid": "{bfcfa9bf-686e-5b87-a5f6-3b97959c26c1}",
