@@ -1,38 +1,48 @@
+# Based on kennethnym's config (https://github.com/kennethnym/dotfiles/blob/41f03b9091181dc62ce872288685b27f001286f3/starship.toml)
+
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
-# Inserts a blank line between shell prompts
-add_newline = true
-
 format = """
+$cmd_duration\
+[╭─](dimmed) \
 $directory\
-$all\
+$git_branch\
+$git_state\
+$git_status\
+$nix_shell\
+$line_break\
 $character"""
-right_format = "$cmd_duration$git_branch$git_status"
 
-# Move the directory to the second line
-# format="$all$directory$character"
+[directory]
+format = '[󰝰  $path]($style)'
+style = "bold green"
+use_os_path_sep = false
 
-[aws]
-disabled = true
-
-[python]
-disabled = true
-
-[nodejs]
-disabled = true
-
-[rust]
-disabled = true
+[character]
+success_symbol = "[╰─（✿ ◕ ᴗ◕\\)つ━━✫・*。](dimmed)"
+error_symbol = "[╰─](dimmed)[ Ψ\\(`_´ # \\)↝ ](red)"
+vimcmd_symbol = "[❮](green)"
 
 [git_branch]
-format = '[$symbol$branch]($style) '
-symbol = "\uf418 "
+format = "  [  $branch]($style)"
+style = "yellow"
 
-[package]
-format = '[$symbol$version]($style) '
-symbol = "\uf487 "
-display_private = true
+[git_status]
+format = "[[( [::](dimmed) $conflicted$untracked$modified$staged$renamed$deleted)](blue) ($ahead_behind$stashed)]($style)"
+style = "cyan"
+conflicted = " "
+untracked = "󰰨 "
+modified = "󰯲 "
+staged = "󰰢 "
+renamed = "󰰟 "
+deleted = "󰯵 "
+stashed = "≡"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "bright-black"
 
 [cmd_duration]
-format = '[$duration](bold yellow) '
+format = "[(   󱎫  took $duration\n)]($style)"
+style = "dimmed"
