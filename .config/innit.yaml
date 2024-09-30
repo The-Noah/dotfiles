@@ -9,6 +9,7 @@ actions:
     name: git lfs
     winget_id: GitHub.GitLFS
     tags: [dev]
+    platforms: [windows]
 
   - action: package.install
     name: 1password
