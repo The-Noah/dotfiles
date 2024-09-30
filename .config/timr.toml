@@ -1,0 +1,7 @@
+[[profiles]]
+name = "work"
+duration = "25m"
+
+[[profiles]]
+name = "break"
+duration = "5m"
