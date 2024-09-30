@@ -71,7 +71,7 @@
             "experimental.rightClickContextMenu": true,
             "font": 
             {
-                "face": "0xProto Nerd Font",
+                "face": "0xProto Nerd Font Mono",
                 "size": 10
             },
             "opacity": 85,
@@ -145,6 +145,7 @@
         ]
     },
     "schemes": [],
+    "tabSwitcherMode": "inOrder",
     "tabWidthMode": "equal",
     "themes": [],
     "trimBlockSelection": true,
