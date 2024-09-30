@@ -1,0 +1,81 @@
+actions:
+  - action: package.install
+    name: git
+    winget_id: Git.Git
+    tags: [core, dev]
+    platforms: [windows]
+
+  - action: package.install
+    name: git lfs
+    winget_id: GitHub.GitLFS
+    tags:
+      - dev
+
+  - action: package.install
+    name: 1password
+    winget_id: AgileBits.1Password
+    tags:
+      - core
+    platforms: [windows]
+
+  - action: package.install
+    name: 7zip
+    winget_id: 7zip.7zip
+    tags:
+      - tools
+    platforms: [windows]
+
+  - action: package.install
+    name: nvm
+    winget_id: CoreyButler.NVMforWindows
+    tags:
+      - dev
+    platforms: [windows]
+
+  - action: command.run
+    command: nvm install lts
+    platforms: [windows]
+
+  - action: command.run
+    command: sudo nvm use lts
+    platforms: [windows]
+
+  - action: package.install
+    name: paint.net
+    winget_id: dotPDN.PaintDotNet
+    tags:
+      - tools
+    platforms: [windows]
+
+  - action: github.repo
+    repo: The-Noah/dotfiles
+    dest: "{{ user.home }}"
+
+  - action: file.download
+    url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/0xProto.zip
+    dest: "{{ user.home }}/Downloads/0xProto.zip"
+
+  - action: file.link
+    name: Innit
+    src: "{{ user.home }}/dotfiles/.config/innit.yaml"
+    dest: "{{ user.home }}/.config/innit.yaml"
+    tags: ["dotfiles"]
+
+  - action: file.link
+    name: Windows Terminal
+    src: "{{ user.home }}/dotfiles/windows_terminal.json"
+    dest: "{{ user.home }}/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
+    tags: ["dotfiles"]
+    platforms: [windows]
+
+  - action: file.link
+    name: Starship
+    src: "{{ user.home }}/dotfiles/.config/starship.toml"
+    dest: "{{ user.home }}/.config/starship.toml"
+    tags: ["dotfiles"]
+
+  - action: file.link
+    name: timr
+    src: "{{ user.home }}/dotfiles/.config/timr.toml"
+    dest: "{{ user.home }}/.config/timr.toml"
+    tags: ["dotfiles"]
