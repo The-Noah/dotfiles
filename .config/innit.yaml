@@ -78,3 +78,10 @@ actions:
     src: "{{ user.home }}/dotfiles/.config/timr.toml"
     dest: "{{ user.home }}/.config/timr.toml"
     tags: [dotfiles]
+
+  - action: file.link
+    name: timr
+    src: "{{ user.home }}/dotfiles/.hushlogin"
+    dest: "{{ user.home }}/.hushlogin"
+    tags: [dotfiles]
+    platforms: [macos]
