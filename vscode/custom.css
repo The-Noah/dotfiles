@@ -1,0 +1,41 @@
+:root {
+  --scrollbar-width: 4px;
+}
+
+/* command pallet */
+
+.quick-input-widget {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+.quick-input-filter .monaco-inputbox {
+  padding: 4px !important;
+  margin-bottom: 8px !important;
+}
+
+/* scroll bar */
+
+.slider {
+  position: absolute !important;
+  /* right: 0 !important; */
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
+  left: auto !important;
+}
+
+.decorationsOverviewRuler,
+.scrollbar {
+  width: var(--scrollbar-width) !important;
+}
+
+.minimap {
+  left: auto !important;
+  right: var(--scrollbar-width) !important;
+}
+
+/* tooltop */
+.monaco-editor-hover,
+.monaco-hover {
+  padding: 4px !important;
+}
