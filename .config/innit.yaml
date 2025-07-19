@@ -45,6 +45,26 @@ actions:
     tags: [tools]
     platforms: [windows]
 
+  # command line tools
+
+  - action: package.install
+    name: ripgrep
+    winget_id: BurntSushi.ripgrep.MSVC
+    tags: [tools]
+    platforms: [windows]
+
+  - action: package.install
+    name: uutils
+    winget_id: uutils.coreutils
+    tags: [tools]
+    platforms: [windows]
+
+  - action: package.install
+    name: bat
+    winget_id: sharkdp.bat
+    tags: [tools]
+    platforms: [windows]
+
   - action: file.download
     url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/0xProto.zip
     dest: "{{ user.home }}/Downloads/0xProto.zip"
@@ -67,8 +87,13 @@ actions:
     tags: [dotfiles]
     platforms: [windows]
 
+  - action: package.install
+    name: starship
+    winget_id: Starship.Starship
+    platforms: [windows]
+
   - action: file.link
-    name: Starship
+    name: starship config
     src: "{{ user.home }}/dotfiles/.config/starship.toml"
     dest: "{{ user.home }}/.config/starship.toml"
     tags: [dotfiles]
