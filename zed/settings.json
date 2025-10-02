@@ -59,12 +59,9 @@
   "ensure_final_newline_on_save": true,
   "tab_size": 2,
   "file_types": {
-    "makefile": [
-      "*.make"
-    ],
-    "ignore": [
-      ".astylerc"
-    ]
+    "makefile": ["*.make"],
+    "ignore": [".astylerc"],
+    "JSON": [".prettierrc"]
   },
   "telemetry": {
     "diagnostics": false,
