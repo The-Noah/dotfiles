@@ -151,3 +151,10 @@ actions:
     dest: "{{ user.home }}/AppData/Roaming/Zed/keymap.json"
     tags: [dotfiles, zed]
     platforms: [windows]
+
+  - action: file.link
+    name: zed tasks
+    src: "{{ user.home }}/dotfiles/zed/tasks.json"
+    dest: "{{ user.home }}/AppData/Roaming/Zed/tasks.json"
+    tags: [dotfiles, zed]
+    platforms: [windows]
