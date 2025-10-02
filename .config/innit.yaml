@@ -48,20 +48,45 @@ actions:
   # command line tools
 
   - action: package.install
-    name: ripgrep
+    name: ripgrep # fast search tool
     winget_id: BurntSushi.ripgrep.MSVC
     tags: [tools]
     platforms: [windows]
 
   - action: package.install
-    name: uutils
+    name: uutils # GNU coreutils replacement
+    #
     winget_id: uutils.coreutils
     tags: [tools]
     platforms: [windows]
 
   - action: package.install
-    name: bat
+    name: bat # cat with wings
     winget_id: sharkdp.bat
+    tags: [tools]
+    platforms: [windows]
+
+  - action: package.install
+    name: xh # command line HTTP client
+    winget_id: ducaale.xh
+    tags: [tools]
+    platforms: [windows]
+
+  - action: package.install
+    name: ncspot # terminal Spotify client
+    winget_id: hrkfdn.ncspot
+    tags: [tools]
+    platforms: [windows]
+
+  - action: package.install
+    name: XAMPPRocky.Tokei # counts lines of code
+    winget_id: hrkfdn.ncspot
+    tags: [tools]
+    platforms: [windows]
+
+  - action: package.install
+    name: dua
+    winget_id: Byron.dua-cli
     tags: [tools]
     platforms: [windows]
 
@@ -110,3 +135,19 @@ actions:
     dest: "{{ user.home }}/.hushlogin"
     tags: [dotfiles]
     platforms: [macos]
+
+  # Zed
+
+  - action: file.link
+    name: zed settings
+    src: "{{ user.home }}/dotfiles/zed/settings.json"
+    dest: "{{ user.home }}/AppData/Roaming/Zed/settings.json"
+    tags: [dotfiles, zed]
+    platforms: [windows]
+
+  - action: file.link
+    name: zed keymap
+    src: "{{ user.home }}/dotfiles/zed/keymap.json"
+    dest: "{{ user.home }}/AppData/Roaming/Zed/keymap.json"
+    tags: [dotfiles, zed]
+    platforms: [windows]

@@ -4,33 +4,12 @@
     "actions": 
     [
         {
-            "command": "unbound",
-            "id": "User.splitPane.A6751878",
-            "keys": "alt+shift+d"
-        },
-        {
-            "command": "unbound",
-            "keys": "ctrl+v"
-        },
-        {
-            "command": "unbound",
-            "keys": "ctrl+shift+f"
-        },
-        {
-            "command": "unbound",
-            "keys": "ctrl+c"
-        },
-        {
             "command": 
             {
                 "action": "copy",
                 "singleLine": false
             },
             "id": "User.copy.644BA8F2"
-        },
-        {
-            "command": "find",
-            "id": "User.find"
         },
         {
             "command": 
@@ -40,6 +19,10 @@
                 "splitMode": "duplicate"
             },
             "id": "User.splitPane.A6751878"
+        },
+        {
+            "command": "find",
+            "id": "User.find"
         },
         {
             "command": "paste",
@@ -53,6 +36,25 @@
     "firstWindowPreference": "defaultProfile",
     "initialCols": 140,
     "initialRows": 40,
+    "keybindings": 
+    [
+        {
+            "id": null,
+            "keys": "alt+shift+d"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+v"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+c"
+        }
+    ],
     "newTabMenu": 
     [
         {

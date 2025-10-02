@@ -1,0 +1,114 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "agent_servers": {
+    "claude": {
+      "default_mode": "bypassPermissions"
+    }
+  },
+  "icon_theme": "Material Icon Theme",
+  "inlay_hints": {
+    "enabled": true
+  },
+  "buffer_font_size": 10.0,
+  "buffer_font_family": "FiraCode Nerd Font Mono Retina",
+  "buffer_font_features": {
+    "calt": true,
+    "kern": true,
+    "liga": true,
+    "rlig": true
+  },
+  "ui_font_family": ".SystemUIFont",
+  "terminal": {
+    "font_size": 10.0,
+    // "env": {
+    //   "PATH": "${env:PATH}"
+    // },
+    "cursor_shape": "bar",
+    "blinking": "on",
+    "shell": {
+      "program": "cmd.exe"
+    },
+    "font_family": "0xProto Nerd Font Mono"
+  },
+  "preview_tabs": {
+    "enabled": false
+  },
+  "git_panel": {
+    "sort_by_path": false,
+    "fallback_branch_name": "master"
+  },
+  "scroll_sensitivity": 2.0,
+  "scroll_beyond_last_line": "one_page",
+  "minimap": {
+    "show": "always",
+    "thumb": "always"
+  },
+  "hover_popover_delay": 50,
+  "cursor_blink": true,
+  "auto_indent_on_paste": true,
+  "linked_edits": true,
+  "show_whitespaces": "trailing",
+  "show_edit_predictions": true,
+  "ensure_final_newline_on_save": true,
+  "tab_size": 2,
+  "file_types": {
+    "makefile": [
+      "*.make"
+    ],
+    "ignore": [
+      ".astylerc"
+    ]
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "base_keymap": "VSCode",
+  "ui_font_size": 16,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "Catppuccin Espresso (Blur)"
+  },
+  "active_pane_modifiers": {
+    "border_size": 0,
+    "inactive_opacity": 0.9
+  },
+  "restore_on_startup": "none",
+  "use_system_path_prompts": false,
+  "use_system_prompts": false,
+  "toolbar": {
+    "breadcrumbs": false,
+    "quick_actions": false
+  },
+  "title_bar": {
+    "show_branch_icon": true,
+    "show_branch_name": true
+  },
+  "indent_guides": {
+    "coloring": "indent_aware"
+  },
+  "agent": {
+    "default_model": {
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-5-thinking-latest"
+    }
+  },
+  "tab_bar": {
+    "show_nav_history_buttons": false
+  },
+  "tabs": {
+    "git_status": true,
+    "file_icons": true
+  },
+  "prettier": {
+    "allowed": true
+  }
+}
