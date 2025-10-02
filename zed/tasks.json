@@ -14,6 +14,19 @@
     "reveal_target": "dock"
   },
   {
+    "label": "Format project",
+    "command": "pnpm",
+    "args": ["format"],
+    "cwd": "${ZED_WORKTREE_ROOT}",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "never",
+    "hide": "always",
+    "show_summary": true,
+    "show_command": false,
+    "reveal_target": "dock"
+  },
+  {
     "label": "List TODOs",
     "command": "rg",
     "args": [
