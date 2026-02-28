@@ -7,48 +7,48 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "agent_servers": {
-    "claude": {
-      "default_mode": "bypassPermissions"
-    }
-  },
   "icon_theme": "Material Icon Theme",
   "inlay_hints": {
-    "enabled": true
+    "enabled": false,
+    "toggle_on_modifiers_press": {
+      "alt": true,
+    },
   },
-  "buffer_font_size": 10.0,
+  "buffer_font_size": 11.0,
   "buffer_font_family": "FiraCode Nerd Font Mono Retina",
   "buffer_font_features": {
     "calt": true,
     "kern": true,
     "liga": true,
-    "rlig": true
+    "rlig": true,
   },
-  "ui_font_family": ".SystemUIFont",
+  "ui_font_size": 14,
+  "ui_font_family": "FiraCode Nerd Font Mono Retina",
+  "ui_font_fallbacks": [".SystemUIFont"],
   "terminal": {
-    "font_size": 10.0,
+    "font_size": 11.0,
     // "env": {
     //   "PATH": "${env:PATH}"
     // },
     "cursor_shape": "bar",
     "blinking": "on",
     "shell": {
-      "program": "cmd.exe"
+      "program": "cmd.exe",
     },
-    "font_family": "0xProto Nerd Font Mono"
+    "font_family": "0xProto Nerd Font Mono",
   },
   "preview_tabs": {
-    "enabled": false
+    "enabled": false,
   },
   "git_panel": {
     "sort_by_path": false,
-    "fallback_branch_name": "master"
+    "fallback_branch_name": "master",
   },
   "scroll_sensitivity": 2.0,
   "scroll_beyond_last_line": "one_page",
   "minimap": {
     "show": "always",
-    "thumb": "always"
+    "thumb": "always",
   },
   "hover_popover_delay": 50,
   "cursor_blink": true,
@@ -58,54 +58,154 @@
   "show_edit_predictions": true,
   "ensure_final_newline_on_save": true,
   "tab_size": 2,
+  "format_on_save": "on",
   "file_types": {
     "makefile": ["*.make"],
     "ignore": [".astylerc"],
-    "JSON": [".prettierrc"]
+    "JSON": [".prettierrc"],
   },
   "telemetry": {
     "diagnostics": false,
-    "metrics": false
+    "metrics": false,
   },
   "base_keymap": "VSCode",
-  "ui_font_size": 16,
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Catppuccin Espresso (Blur)"
+    "dark": "Catppuccin Espresso (Blur)",
   },
   "active_pane_modifiers": {
     "border_size": 0,
-    "inactive_opacity": 0.9
+    "inactive_opacity": 0.8,
   },
-  "restore_on_startup": "none",
   "use_system_path_prompts": false,
   "use_system_prompts": false,
-  "toolbar": {
-    "breadcrumbs": false,
-    "quick_actions": false
-  },
   "title_bar": {
     "show_branch_icon": true,
-    "show_branch_name": true
-  },
-  "indent_guides": {
-    "coloring": "indent_aware"
-  },
-  "agent": {
-    "default_model": {
-      "provider": "anthropic",
-      "model": "claude-sonnet-4-5-thinking-latest"
-    }
+    "show_user_menu": false,
+    "show_onboarding_banner": false,
   },
   "tab_bar": {
-    "show_nav_history_buttons": false
+    "show": false,
+    "show_nav_history_buttons": false,
+  },
+  "toolbar": {
+    "breadcrumbs": false,
+    "quick_actions": false,
+  },
+  "status_bar": {
+    "active_language_button": false,
+    "cursor_position_button": false,
+  },
+  "project_panel": {
+    "default_width": 300,
+    "hide_root": true,
+    "start_open": true,
+    "scrollbar": {
+      "show": "never",
+    },
+    "indent_guides": {
+      "show": "never",
+    },
+  },
+  "outline_panel": {
+    "default_width": 300,
+    "scrollbar": {
+      "show": "never",
+    },
+    "indent_guides": {
+      "show": "never",
+    },
+  },
+  "file_finder": {
+    "modal_max_width": "small",
+  },
+  "scrollbar": {
+    "show": "never",
+  },
+  "indent_guides": {
+    "enabled": false,
+  },
+  "gutter": {
+    "min_line_number_digits": 3,
+    "folds": false,
+    "runnables": false,
+    "breakpoints": false,
+  },
+  "extend_comment_on_newline": false,
+  "horizontal_scroll_margin": 15,
+  "vertical_scroll_margin": 5,
+  "close_on_file_delete": true,
+  "restore_on_file_reopen": false,
+  "restore_on_startup": "launchpad",
+  "inline_code_actions": false,
+  "edit_predictions_disabled_in": ["comment"],
+  "git": {
+    "inline_blame": {
+      "enabled": false,
+    },
+    "branch_picker": {
+      "show_author_name": true,
+    },
+  },
+  "agent": {
+    "single_file_review": true,
+    "default_model": {
+      "provider": "zai-org",
+      "model": "glm-4.7-flash",
+    },
+    "tool_permissions": {
+      "default": "confirm",
+      "tools": {
+        "terminal": {
+          "always_allow": [
+            { "pattern": "^cargo\\s+(build|test|check|fmt|clippy)" },
+            { "pattern": "^pnpm\\s+(build|test|check|format|lint)" },
+            { "pattern": "^git\\s+(status|log|diff)" },
+          ],
+          "always_deny": [{ "pattern": "rm\\s+-rf\\s+(/|~)" }],
+          "always_confirm": [{ "pattern": "sudo\\s" }],
+        },
+        "edit_file": {
+          "always_deny": [
+            { "pattern": "\\.env" },
+            { "pattern": "\\.(pem|key)$" },
+          ],
+        },
+      },
+    },
   },
   "tabs": {
     "git_status": true,
-    "file_icons": true
+    "file_icons": true,
   },
   "prettier": {
-    "allowed": true
-  }
+    "allowed": true,
+  },
+  "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "check": {
+          "command": "clippy",
+        },
+      },
+    },
+  },
+  "theme_overrides": {
+    "Catppuccin Espresso (Blur)": {},
+  },
+  "profiles": {
+    "minimal": {
+      "status_bar": {
+        "experimental.show": false,
+      },
+      "minimap": {
+        "show": "never",
+      },
+      "title_bar": {
+        "show_branch_name": false,
+        "show_project_items": false,
+      },
+    },
+  },
 }
