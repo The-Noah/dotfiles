@@ -15,7 +15,7 @@
     },
   },
   "buffer_font_size": 11.0,
-  "buffer_font_family": "FiraCode Nerd Font Mono Retina",
+  "buffer_font_family": "0xProto Nerd Font Mono",
   "context_servers": {
     "svelte": {
       "enabled": true,
@@ -36,7 +36,7 @@
     "rlig": true,
   },
   "ui_font_size": 14,
-  "ui_font_family": "FiraCode Nerd Font Mono Retina",
+  "ui_font_family": "0xProto Nerd Font Mono",
   "ui_font_fallbacks": [".SystemUIFont"],
   "terminal": {
     "font_size": 11.0,
