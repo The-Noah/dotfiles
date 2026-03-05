@@ -82,7 +82,6 @@
     "metrics": false,
   },
   "base_keymap": "VSCode",
-  "ui_font_size": 16,
   "theme": "Catppuccin Espresso (Blur)",
   "active_pane_modifiers": {
     "border_size": 0,
@@ -106,6 +105,7 @@
   "status_bar": {
     "active_language_button": false,
     "cursor_position_button": false,
+    "line_endings_button": true,
   },
   "project_panel": {
     "default_width": 300,
@@ -232,9 +232,6 @@
       },
     },
   },
-  "theme_overrides": {
-    "Catppuccin Espresso (Blur)": {},
-  },
   "language_models": {
     "openai_compatible": {
       "Uranus": {
@@ -255,16 +252,12 @@
       },
     },
   },
-  "status_bar": {
-    "line_endings_button": true,
-  },
   "languages": {
     "Rust": {
       "format_on_save": "on",
       "formatter": "language_server",
     },
   },
-  "format_on_save": "on",
   "profiles": {
     "minimal": {
       "status_bar": {
