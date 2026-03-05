@@ -16,6 +16,19 @@
   },
   "buffer_font_size": 11.0,
   "buffer_font_family": "FiraCode Nerd Font Mono Retina",
+  "context_servers": {
+    "svelte": {
+      "enabled": true,
+      "command": "pnpx",
+      "args": ["@sveltejs/mcp"],
+    },
+  },
+  "agent_servers": {
+    "OpenCode": {
+      "command": "opencode",
+      "args": ["acp"],
+    },
+  },
   "buffer_font_features": {
     "calt": true,
     "kern": true,
@@ -69,11 +82,8 @@
     "metrics": false,
   },
   "base_keymap": "VSCode",
-  "theme": {
-    "mode": "system",
-    "light": "One Light",
-    "dark": "Catppuccin Espresso (Blur)",
-  },
+  "ui_font_size": 16,
+  "theme": "Catppuccin Espresso (Blur)",
   "active_pane_modifiers": {
     "border_size": 0,
     "inactive_opacity": 0.8,
@@ -192,8 +202,69 @@
     },
   },
   "theme_overrides": {
+    "Catppuccin Espresso (Blur)": {
+      "syntax": {
+        "constant.comment.todo": {
+          "color": "#ffffff",
+          "background_color": "#4078f2ff",
+          "font_weight": 700,
+        },
+        "string.comment.info": {
+          "color": "#ffffff",
+          "background_color": "#50a14fff",
+          "font_weight": 700,
+        },
+        "keyword.comment.warn": {
+          "color": "#ffffff",
+          "background_color": "#c18401ff",
+          "font_weight": 700,
+        },
+        "property.comment.error": {
+          "color": "#ffffff",
+          "background_color": "#ca1243ff",
+          "font_weight": 700,
+        },
+        "emphasis.comment.user": {
+          "color": "#ffffff",
+          "background_color": "#000000dd",
+          "font_weight": 700,
+        },
+      },
+    },
+  },
+  "theme_overrides": {
     "Catppuccin Espresso (Blur)": {},
   },
+  "language_models": {
+    "openai_compatible": {
+      "Uranus": {
+        "api_url": "http://uranus:1234/v1",
+        "available_models": [
+          {
+            "name": "openai/gpt-oss-20b",
+            "display_name": "GPT-20B",
+            "max_tokens": 131072,
+            "capabilities": {
+              "tools": true,
+              "images": false,
+              "parallel_tool_calls": false,
+              "prompt_cache_key": false,
+            },
+          },
+        ],
+      },
+    },
+  },
+  "status_bar": {
+    "line_endings_button": true,
+  },
+  "languages": {
+    "Rust": {
+      "format_on_save": "on",
+      "formatter": "language_server",
+    },
+  },
+  "format_on_save": "on",
   "profiles": {
     "minimal": {
       "status_bar": {
