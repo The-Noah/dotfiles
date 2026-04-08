@@ -7,8 +7,18 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "debugger": {
+    "button": false
+  },
+  "search": {
+    "button": false
+  },
+  "diagnostics": {
+    "button": true
+  },
+  "agent_ui_font_size": 14.0,
   "collaboration_panel": {
-    "dock": "left"
+    "dock": "right"
   },
   "icon_theme": "Material Icon Theme",
   "inlay_hints": {
@@ -55,6 +65,7 @@
   "ui_font_family": "0xProto Nerd Font Mono",
   "ui_font_fallbacks": [".SystemUIFont"],
   "terminal": {
+    "button": false,
     "font_size": 11.0,
     // "env": {
     //   "PATH": "${env:PATH}"
@@ -67,6 +78,7 @@
     "font_family": "0xProto Nerd Font Mono",
   },
   "preview_tabs": {
+    "enable_preview_from_project_panel": false,
     "enabled": false,
   },
   "git_panel": {
@@ -137,7 +149,7 @@
     },
   },
   "outline_panel": {
-    "dock": "left",
+    "dock": "right",
     "default_width": 300,
     "scrollbar": {
       "show": "never",
@@ -178,6 +190,7 @@
     },
   },
   "agent": {
+    "sidebar_side": "right",
     "dock": "right",
     "inline_assistant_model": {
       "provider": "google",
