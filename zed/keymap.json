@@ -47,4 +47,9 @@
       ],
     },
   },
+  {
+    "bindings": {
+      "ctrl-l": "pane::SplitAndMoveRight",
+    },
+  },
 ]

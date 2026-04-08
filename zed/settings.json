@@ -7,6 +7,9 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "collaboration_panel": {
+    "dock": "left"
+  },
   "icon_theme": "Material Icon Theme",
   "inlay_hints": {
     "enabled": false,
@@ -17,8 +20,14 @@
   "buffer_font_size": 11.0,
   "buffer_font_family": "0xProto Nerd Font Mono",
   "context_servers": {
-    "svelte": {
+    "Sentry": {
+      "settings": {},
+        
       "enabled": true,
+      "url": "https://mcp.sentry.dev/mcp/click-wise-design/northstar"
+    },
+    "svelte": {
+      "enabled": false,
       "command": "pnpx",
       "args": ["@sveltejs/mcp"],
     },
@@ -28,6 +37,12 @@
       "type": "custom",
       "command": "opencode",
       "args": ["acp"],
+    },
+    "claude-acp": {
+      "default_config_options": {
+        "mode": "acceptEdits",
+      },
+      "type": "registry",
     },
   },
   "buffer_font_features": {
@@ -55,6 +70,7 @@
     "enabled": false,
   },
   "git_panel": {
+    "dock": "left",
     "sort_by_path": false,
     "fallback_branch_name": "master",
   },
@@ -109,6 +125,7 @@
     "line_endings_button": true,
   },
   "project_panel": {
+    "dock": "left",
     "default_width": 300,
     "hide_root": true,
     "start_open": true,
@@ -120,6 +137,7 @@
     },
   },
   "outline_panel": {
+    "dock": "left",
     "default_width": 300,
     "scrollbar": {
       "show": "never",
@@ -160,10 +178,20 @@
     },
   },
   "agent": {
+    "dock": "right",
+    "inline_assistant_model": {
+      "provider": "google",
+      "model": "gemini-3-flash-preview",
+      "enable_thinking": false
+    },
     "single_file_review": true,
     "default_model": {
       "provider": "zai-org",
       "model": "glm-4.7-flash",
+    },
+    "commit_message_model": {
+      "provider": "anthropic",
+      "model": "claude-4-5-haiku",
     },
     "tool_permissions": {
       "default": "confirm",
@@ -261,16 +289,18 @@
   },
   "profiles": {
     "minimal": {
-      "status_bar": {
-        "experimental.show": false,
-      },
-      "minimap": {
-        "show": "never",
-      },
-      "title_bar": {
-        "show_branch_name": false,
-        "show_project_items": false,
-      },
+      "settings": {
+        "status_bar": {
+          "experimental.show": false
+        },
+        "minimap": {
+          "show": "never"
+        },
+        "title_bar": {
+          "show_branch_name": false,
+          "show_project_items": false
+        }
+      }
     },
   },
 }
