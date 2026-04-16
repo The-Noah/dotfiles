@@ -7,18 +7,22 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "diff_view_style": "split",
+  "session": {
+    "trust_all_worktrees": true
+  },
   "debugger": {
-    "button": false
+    "button": false,
   },
   "search": {
-    "button": false
+    "button": false,
   },
   "diagnostics": {
-    "button": true
+    "button": true,
   },
   "agent_ui_font_size": 14.0,
   "collaboration_panel": {
-    "dock": "right"
+    "dock": "right",
   },
   "icon_theme": "Material Icon Theme",
   "inlay_hints": {
@@ -30,19 +34,34 @@
   "buffer_font_size": 11.0,
   "buffer_font_family": "0xProto Nerd Font Mono",
   "context_servers": {
+    "mcp-server-supabase": {
+      "enabled": true,
+      "remote": false,
+      "settings": {}
+    },
+    "mcp-server-context7": {
+      "enabled": true,
+      "remote": false,
+      "settings": {
+        "context7_api_key": "",
+      },
+    },
     "Sentry": {
       "settings": {},
-        
+
       "enabled": true,
-      "url": "https://mcp.sentry.dev/mcp/click-wise-design/northstar"
+      "url": "https://mcp.sentry.dev/mcp/click-wise-design/northstar",
     },
     "svelte": {
-      "enabled": false,
+      "enabled": true,
       "command": "pnpx",
       "args": ["@sveltejs/mcp"],
     },
   },
   "agent_servers": {
+    "opencode": {
+      "type": "registry"
+    },
     "OpenCode": {
       "type": "custom",
       "command": "opencode",
@@ -50,6 +69,7 @@
     },
     "claude-acp": {
       "default_config_options": {
+        "model": "opus[1m]",
         "mode": "acceptEdits",
       },
       "type": "registry",
@@ -73,7 +93,7 @@
     "cursor_shape": "bar",
     "blinking": "on",
     "shell": {
-      "program": "cmd.exe",
+      "program": "fish",
     },
     "font_family": "0xProto Nerd Font Mono",
   },
@@ -111,7 +131,7 @@
     "metrics": false,
   },
   "base_keymap": "VSCode",
-  "theme": "Catppuccin Espresso (Blur)",
+  "theme": "Catppuccin Mocha (Blur)",
   "active_pane_modifiers": {
     "border_size": 0,
     "inactive_opacity": 0.8,
@@ -195,7 +215,7 @@
     "inline_assistant_model": {
       "provider": "google",
       "model": "gemini-3-flash-preview",
-      "enable_thinking": false
+      "enable_thinking": false,
     },
     "single_file_review": true,
     "default_model": {
@@ -304,16 +324,16 @@
     "minimal": {
       "settings": {
         "status_bar": {
-          "experimental.show": false
+          "experimental.show": false,
         },
         "minimap": {
-          "show": "never"
+          "show": "never",
         },
         "title_bar": {
           "show_branch_name": false,
-          "show_project_items": false
-        }
-      }
+          "show_project_items": false,
+        },
+      },
     },
   },
 }
