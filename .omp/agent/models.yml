@@ -1,0 +1,11 @@
+providers:
+  openrouter:
+    modelOverrides:
+      moonshotai/kimi-k3:
+        compat:
+          openRouterRouting:
+            order: [modal/mxfp4, baseten/fp8]
+      z-ai/glm-5.3-flash:
+        compat:
+          openRouterRouting:
+            order: [baseten/fp8, makora]

@@ -158,3 +158,89 @@ actions:
     dest: "{{ user.home }}/AppData/Roaming/Zed/tasks.json"
     tags: [dotfiles, zed]
     platforms: [windows]
+
+  # omp
+
+  - action: file.link
+    name: omp config.yml
+    src: "{{ user.home }}/dotfiles/.omp/agent/config.yml"
+    dest: "{{ user.home }}/.omp/agent/config.yml"
+    tags: [dotfiles, omp]
+
+  - action: file.link
+    name: omp RULES.md
+    src: "{{ user.home }}/dotfiles/.omp/agent/RULES.md"
+    dest: "{{ user.home }}/.omp/agent/RULES.md"
+    tags: [dotfiles, omp]
+
+  - action: file.link
+    name: omp WATCHDOG.yml
+    src: "{{ user.home }}/dotfiles/.omp/agent/WATCHDOG.yml"
+    dest: "{{ user.home }}/.omp/agent/WATCHDOG.yml"
+    tags: [dotfiles, omp]
+
+  - action: file.link
+    name: omp mcp.json
+    src: "{{ user.home }}/dotfiles/.omp/agent/mcp.json"
+    dest: "{{ user.home }}/.omp/agent/mcp.json"
+    tags: [dotfiles, omp]
+
+  - action: file.link
+    name: omp lsp.json
+    src: "{{ user.home }}/dotfiles/.omp/agent/lsp.json"
+    dest: "{{ user.home }}/.omp/agent/lsp.json"
+    tags: [dotfiles, omp]
+
+  - action: file.link
+    name: omp models.yml
+    src: "{{ user.home }}/dotfiles/.omp/agent/models.yml"
+    dest: "{{ user.home }}/.omp/agent/models.yml"
+    tags: [dotfiles, omp]
+
+  - action: file.link
+    name: omp keybindings.json
+    src: "{{ user.home }}/dotfiles/.omp/agent/keybindings.json"
+    dest: "{{ user.home }}/.omp/agent/keybindings.json"
+    tags: [dotfiles, omp]
+
+  - action: file.link
+    name: omp keybindings.yml
+    src: "{{ user.home }}/dotfiles/.omp/agent/keybindings.yml"
+    dest: "{{ user.home }}/.omp/agent/keybindings.yml"
+    tags: [dotfiles, omp]
+
+  - action: file.link
+    name: omp agents
+    src: "{{ user.home }}/dotfiles/.omp/agent/agents"
+    dest: "{{ user.home }}/.omp/agent/agents"
+    tags: [dotfiles, omp]
+
+  - action: file.link
+    name: omp bin
+    src: "{{ user.home }}/dotfiles/.omp/agent/bin"
+    dest: "{{ user.home }}/.omp/agent/bin"
+    tags: [dotfiles, omp]
+
+  - action: file.link
+    name: omp commands
+    src: "{{ user.home }}/dotfiles/.omp/agent/commands"
+    dest: "{{ user.home }}/.omp/agent/commands"
+    tags: [dotfiles, omp]
+
+  - action: file.link
+    name: omp extensions
+    src: "{{ user.home }}/dotfiles/.omp/agent/extensions"
+    dest: "{{ user.home }}/.omp/agent/extensions"
+    tags: [dotfiles, omp]
+
+  - action: file.link
+    name: omp rules
+    src: "{{ user.home }}/dotfiles/.omp/agent/rules"
+    dest: "{{ user.home }}/.omp/agent/rules"
+    tags: [dotfiles, omp]
+
+  - action: file.link
+    name: omp skills
+    src: "{{ user.home }}/dotfiles/.omp/agent/skills"
+    dest: "{{ user.home }}/.omp/agent/skills"
+    tags: [dotfiles, omp]

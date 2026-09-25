@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/can1357/oh-my-pi/main/packages/coding-agent/src/config/mcp-schema.json",
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "node",
+      "args": [
+        "-e",
+        "import(require('node:url').pathToFileURL(require('node:path').join(require('node:os').homedir(), '.omp', 'agent', 'bin', 'browser-mcp.mjs')))"
+      ]
+    }
+  }
+}
