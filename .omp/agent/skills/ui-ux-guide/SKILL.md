@@ -1,6 +1,6 @@
 ---
 name: ui-ux-guide
-description: Project-independent UI/UX rules. Use whenever creating, editing, designing, or reviewing any user-facing surface (pages, forms, modals, components, dashboards, dialogs, panels, tables, anything that renders). Covers the reuse procedure, token discipline, scannable layout (edge-locked alignment, relative emphasis, container nesting, row differentiation), optimistic-update policy, required button/input states, feedback and wait-time UX, modern CSS (floating panels, anchor positioning, scroll-margin, scroll-snap, `:user-invalid`, `:focus-visible`, the `lh` unit, `field-sizing: content`), rendered-UI verification, dashboard density, behavioral design, and product loops. Pair with the project's `design-system` skill when one exists; it names the tokens, components and commands.
+description: Project-independent UI/UX rules. Use whenever creating, editing, designing, or reviewing any user-facing surface (pages, forms, modals, components, dashboards, dialogs, panels, tables, paywalls, anything that renders). Covers the reuse procedure, token discipline, scannable layout (edge-locked alignment, relative emphasis, container nesting, row differentiation), optimistic-update policy, required button/input states, feedback and wait-time UX, modern CSS (floating panels, anchor positioning, scroll-margin, scroll-snap, `:user-invalid`, `:focus-visible`, the `lh` unit, `field-sizing: content`), rendered-UI verification, dashboard density, behavioral design, paywall structure (one offer, annual default, trial over discount), product loops, and premium feel (undo, error recovery, cross-screen consistency, designed failure/offline/empty states, breaking the product on purpose). Pair with the project's `design-system` skill when one exists; it names the tokens, components and commands.
 ---
 
 # UI/UX guide
@@ -313,6 +313,7 @@ Combine with `:has()` for precise targeting (`.list:not(:has(.item))` means empt
    - Size the viewport with device emulation, never by resizing the window. Window managers clamp window sizes (a 390px request can land at 848px), and the screenshot silently records the clamped size.
    - Pages that scroll inside an inner container defeat full-page screenshots, which capture only the visible box. Emulate a tall viewport instead (e.g. `1600x2600`). Clear the emulation when you finish.
    - If you cannot see the page (dev server down, browser tools missing), say so explicitly rather than claiming the UI works.
+3. **Break it on purpose** (§18). Go offline, fail the payment, empty the lists, then look at what renders. A surface checked only on the happy path is not verified.
 
 ## 13. Anti-patterns (will be rejected)
 
@@ -338,6 +339,8 @@ Combine with `:has()` for precise targeting (`.list:not(:has(.item))` means empt
 - A first-run tutorial modal or feature tour where a constrained first path would teach the same thing (§17).
 - Sending a user who hit a locked feature off to the pricing page instead of rendering the gate in place (§16, §17).
 - A mutation that refreshes only the acting user's view of a row several people edit (§17 Multiplayer).
+- One-off purchases (credit packs, single unlocks) sitting beside the plans on the main subscription paywall (§16 Paywalls).
+- Monthly and annual shown as equal side-by-side cards with nothing preselected (§16 Paywalls).
 - Centered text in a dense row or card body where a left label and right value would scan (§4).
 - A divider, border, or nested card papering over content that is simply misaligned (§4).
 - Making the primary action louder instead of making its neighbors quieter (§4).
@@ -349,6 +352,11 @@ Combine with `:has()` for precise targeting (`.list:not(:has(.item))` means empt
 - A bare `:focus` ring on a button, link or trigger, which flashes on every mouse click; use `:focus-visible` (§11).
 - Line-count heights written in `em`/`rem` instead of `lh` (§11).
 - A JS textarea resizer where `field-sizing: content` does the job (§11).
+- A happy-path-only screen whose error, offline, empty and expired states fall through to framework defaults (§18).
+- Clearing the user's input after a failed submit (§18).
+- One concept or action named two ways on two screens ("workspace" here, "team" there; "Delete" here, "Remove" there) (§18).
+- "Something went wrong" with no cause and no next step (§18).
+- A flow that ends in a bare redirect with no word on what was saved or what comes next (§18).
 
 ## 14. Dashboard design principles
 
@@ -390,16 +398,25 @@ The test for every element is **"Does this add value, or is it a distraction?"**
 
 Good UX also means making the next action feel obvious, valuable, and worth completing, by working with how people actually decide. Apply these to forms, onboarding flows, upgrade prompts, and pricing surfaces.
 
-- **Smart defaults.** Pre-fill forms with the most common choice. Users read a default as an expert recommendation, so the task feels like an adjustment rather than a chore. Select the likely option (plan, quantity, notification setting) over an empty field, keep it easy to change, and never default destructive or billing-increasing choices.
+- **Smart defaults.** Pre-fill forms with the most common choice. Users read a default as an expert recommendation, so the task feels like an adjustment rather than a chore. Select the likely option (plan, quantity, notification setting) over an empty field, keep it easy to change, and never default destructive or billing-increasing choices. The one exception is a paywall the user opened to buy, where the annual plan is the default (Paywalls, below).
 - **Goal-gradient effect.** Never start a user at 0%. Count steps already taken (account created, first contact added) as progress, so a multi-step flow opens at around 20%. Visible momentum motivates completion. Use progress bars or step indicators on onboarding, setup checklists, and multi-step forms.
 - **Reciprocity.** Give value before asking for a signup or upgrade. Something useful first (a real quote, a usable report, a working preview) creates a pull to return the favor. Let the user reach a genuine result before hitting a wall.
 - **IKEA effect.** Let users invest effort or personalize before a signup or paywall. People value what they helped build and abandon it less. Preserve their work across the wall: carry a drafted document or configured widget through signup instead of discarding it.
 - **Loss aversion.** Losing hurts about twice as much as gaining pleases (Kahneman). Frame upgrade and retention prompts around what the user stands to lose ("you'll lose access to your saved routes"), not only what they'd gain. Use it for trial expiry, downgrade and cancellation flows, honestly, never with fake scarcity.
 - **Contrast effect.** People judge prices relative to each other. Show a high-value, high-price item first so secondary costs read as small ("+$19/mo" next to the annual plan feels negligible). Order tiers and add-ons so the anchor comes first.
-- **Icebreaker (small first commitment).** The hard conversion is the first payment, not the largest one. A cheap, obviously worthwhile first purchase (one add-on, a metered top-up, a low-tier month) turns a non-payer into a payer, and every purchase after that is easier. When pitching a paid capability, offer the smallest real unit alongside the plan jump, and deep-link the call to action straight to it.
+- **Icebreaker (small first commitment).** The hard conversion is the first payment, not the largest one. A cheap, obviously worthwhile first purchase (one add-on, a metered top-up, a low-tier month) turns a non-payer into a payer, and every purchase after that is easier. When a gate blocks one specific paid capability, offer the smallest real unit for it alongside the plan jump, and deep-link the call to action straight to it. This applies to that gate only. The main subscription paywall carries no one-off units (Paywalls, below).
 - **Monetize at the moment of need.** A prompt converts when the user has just felt the need, not on a static pricing page they have to go find. Render the gate where the action was attempted, in place of the locked surface. A quota wall belongs on the blocked action, not in settings. Never redirect a blocked action to a billing page, and never let a page load die on a bare 402 when the client could explain it: loads render, mutations enforce.
 
 **Core takeaway:** apply these honestly. They should surface real value and reduce friction, not manipulate. No dark patterns, no fake scarcity, no defaults that cost the user money without clear consent.
+
+### Paywalls: structure before price
+
+When a paywall underconverts, change its structure before you cut the price. Which options appear, which one is preselected, and whether the offer is a discount or a trial often move revenue more than a price change does.
+
+- **One offer per paywall.** The subscription paywall sells the subscription and nothing else. A credit pack or one-off unlock next to the plans gives the user one more choice to weigh and an escape hatch toward the smaller purchase. Mojo pulled AI credit packs off its main paywall and subscription revenue rose 14%. Small one-off units still have a place at the gate for that one capability (icebreaker, above), never next to the plan picker.
+- **Lead with annual, keep monthly one tap away.** Show and preselect the annual plan. Put monthly behind a "See all plans" link instead of beside annual as an equal card. People stick with whatever is preselected. Built with Science made this change and annual share went from 60% to 75-80%. Print the billed total next to the per-month figure ("$59.99 billed yearly") so the default never hides what gets charged.
+- **Trial over discount.** A full-access free trial lets the user own the product before paying for it, and people value what they already have. That is the endowment effect. Pregnancy Plus tested a discounted intro price against a free trial, and the trial earned 140% more revenue, with trial users also staying longer. State the trial end date and the charge on the paywall, remind the user before the first charge, and frame the end of the trial around what they lose (loss aversion, above).
+- **Test structure before price.** Remove or reorder plans, change the default, swap a discount for a trial. Change one thing per test. Judge the result by revenue and retention, not conversion rate, because a cheaper default can raise conversion and lower revenue.
 
 ## 17. Product as a game loop
 
@@ -443,3 +460,43 @@ Workspace data is multiplayer. Every row one member edits is visible to other me
 - **Expect boundary pushers.** Double submits, two open tabs, a form posted an hour late, an id belonging to another account. Disable in-flight submits and validate on the server; a client-only guard is not a rule.
 - **Build the safety net.** Destructive actions go through soft delete so a mistake is recoverable, and they stay deliberate rather than optimistic (§5). Reversible beats confirmable: an undo is better than a second confirm dialog.
 - **Show who.** When state is shared, attribution is part of the UI: who changed it and when, with an avatar (§1). An "Assigned to" field with no face is a multiplayer surface pretending to be single player.
+
+## 18. Premium feel lives in the unglamorous states
+
+AI-generated screens look finished on the happy path and come apart everywhere else. The gap between a fast product and a premium one is the work nobody screenshots: feedback, undo, recovery, consistency between screens, and the moment something breaks. Give those states the same design care as the primary success screen. They cut the user's mental effort, and they are where trust gets built or lost.
+
+### The unglamorous parts first
+
+- **Every action answers.** A click with no visible result makes the user wonder whether it worked, and that doubt is mental load (§7).
+- **Undo beats confirm.** A reversible action with an undo toast costs one click. A confirm dialog costs a decision every single time, and people learn to click through it (§17 safety net).
+- **Recovery keeps the user's work.** A failed submit leaves the form filled, names the field or the cause, and offers the next step (retry, edit, contact). Never clear input on failure.
+- **Endings are screens too.** Session end, logout, timeout, task complete, cancel: say what was saved, what happens next, and how to pick up again. A bare redirect at the end of a flow throws away the trust the flow earned. The app Undertone raised retention by fixing nothing more than an unhelpful session-end flow.
+
+### Connective tissue between screens
+
+Users experience the app as one product, not a stack of screens. Screens generated one at a time drift apart in wording, layout and behavior, and the drift reads as carelessness even when each screen is fine alone.
+
+- **One name per concept.** Nav, headings, buttons, toasts and emails use the same term for the same thing, and the same verb for the same action. "Workspace" never turns into "team" two screens later.
+- **One structure per job.** List pages share a layout, detail pages share a layout, settings pages share a layout: header, primary action placement, filter bar, empty state. Copy the canonical reference (§0 step 3) instead of generating a fresh arrangement.
+- **One pattern per interaction.** Deleting a row, editing inline and opening a detail drawer behave the same on every screen that offers them.
+- **Hand-offs carry context.** Breadcrumbs show where the user is (§1). The item they came from stays highlighted. Back restores scroll position. A success toast names what was created and links to it.
+- Before shipping a new screen, open it beside its two closest siblings and compare copy, structure and action placement.
+
+### Worst-case moments
+
+The service recovery paradox: a user whose problem gets resolved well often ends up happier than one who never hit a problem. That makes failure states some of the highest-leverage screens in the product, and the ones most often left to defaults.
+
+- **Payment failure.** Say what failed in plain words (declined, expired, insufficient funds, as the processor reports it). Keep the plan choice and form intact, offer another method, and state what the user keeps in the meantime ("Your access continues until March 3").
+- **Connection loss.** Show the offline state persistently but quietly, keep or queue unsent input, retry on reconnect, and confirm when back online. A typed message must never vanish.
+- **Empty data.** Distinguish the cause (nothing yet, filters excluded everything, no permission) and offer the action that fixes that cause (§7, §15).
+- **Server errors and missing pages.** Plain-language cause, what the user can do, and a way back. No stack traces, and no "Something went wrong" standing alone.
+- **Error copy owns the problem and names the next step.** "We couldn't save your changes. Your edits are still here. Retry" beats "Error 500".
+
+### Break it on purpose
+
+Open the product and break it before calling a surface done. Each break below produces a state; design that state with intent instead of accepting whatever renders.
+
+- Go offline (devtools network throttling set to offline) mid-load and mid-submit.
+- Fail a payment with the processor's decline test card.
+- Empty every list: a fresh account, a filter that matches nothing, a user without permission.
+- Submit invalid data, double-click submit, and let the session expire with unsaved work open.
