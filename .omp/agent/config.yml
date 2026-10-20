@@ -5,12 +5,13 @@ theme:
 setupVersion: 2
 defaultThinkingLevel: auto
 modelRoles:
-  smol: anthropic/claude-opus-5-5:medium
-  tiny: anthropic/claude-haiku-4-5
+  smol: anthropic/claude-sonnet-5-5:high
+  tiny: anthropic/claude-haiku-5-5:medium
   designer: openrouter/moonshotai/kimi-k3:high
   vision: openrouter/moonshotai/kimi-k3:max
   advisor: openrouter/z-ai/glm-5.3-flash:max
   default: anthropic/claude-opus-5-5:high
+  slow: anthropic/claude-fable-5-1
 task:
   enableEffort: true
   showResolvedModelBadge: true
@@ -20,8 +21,7 @@ task:
     librarian: "@smol"
     sonic: "@tiny"
   softRequestBudget: 80
-disabledExtensions:
-  []
+disabledExtensions: []
 tools:
   approvalMode: yolo
   approval:
@@ -292,3 +292,5 @@ edit:
     enabled: true
 compaction:
   idleEnabled: true
+dev:
+  autoqaConsent: granted
