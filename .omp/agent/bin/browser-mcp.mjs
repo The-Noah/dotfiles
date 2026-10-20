@@ -188,8 +188,11 @@ if (process.argv[2] === "login") {
     const root = projectRoot();
     const url = webUrl(process.argv[3]) || webUrl(configuredUrl(root)) || (await detectDevServer(root));
     mkdirSync(profile, { recursive: true });
+    // Puppeteer launches the MCP browser with these two switches, so cookies must be encrypted the same
+    // way here: a keyring-encrypted (v11) cookie is unreadable there and the sign-in silently vanishes.
+    const keyStore = ["--password-store=basic", "--use-mock-keychain"];
     // `--` ends switch parsing, so a URL can never be read as a browser flag.
-    const login = spawn(browser, [`--user-data-dir=${profile}`, "--no-first-run", ...(url ? ["--", url] : [])], {
+    const login = spawn(browser, [`--user-data-dir=${profile}`, "--no-first-run", ...keyStore, ...(url ? ["--", url] : [])], {
       stdio: "ignore",
       windowsHide: false
     });
