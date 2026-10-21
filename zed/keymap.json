@@ -9,47 +9,58 @@
   {
     "context": "Workspace",
     "bindings": {
-      "shift shift": "file_finder::Toggle",
-    },
+      "shift shift": "file_finder::Toggle"
+    }
   },
   {
     "bindings": {
-      "ctrl-shift-o": "workspace::Open",
-    },
+      "ctrl-shift-o": "workspace::Open"
+    }
   },
   {
     "context": "Workspace",
     "bindings": {
-      "ctrl-o": null,
-    },
+      "ctrl-o": null
+    }
   },
   {
     "bindings": {
-      "ctrl-o": "file_finder::Toggle",
-    },
+      "ctrl-o": "file_finder::Toggle"
+    }
   },
   {
-    "bindings": { "ctrl-p": "command_palette::Toggle" },
+    "bindings": { "ctrl-p": "command_palette::Toggle" }
   },
   {
     "bindings": {
       "ctrl-alt-c": [
         "agent::NewExternalAgentThread",
-        { "agent": { "custom": { "name": "claude-acp" } } },
-      ],
-    },
+        { "agent": { "custom": { "name": "claude-acp" } } }
+      ]
+    }
   },
   {
     "bindings": {
       "ctrl-alt-o": [
         "agent::NewExternalAgentThread",
-        { "agent": { "custom": { "name": "OpenCode" } } },
-      ],
-    },
+        { "agent": { "custom": { "name": "OpenCode" } } }
+      ]
+    }
   },
   {
     "bindings": {
-      "ctrl-l": "pane::SplitAndMoveRight",
-    },
+      "ctrl-alt-a": ["agent::NewExternalAgentThread", { "agent": { "custom": { "name": "omp" } } }]
+    }
   },
+  {
+    "bindings": {
+      "ctrl-l": "pane::SplitAndMoveRight"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "alt-shift-p": ["task::Spawn", { "task_name": "git sync" }]
+    }
+  }
 ]

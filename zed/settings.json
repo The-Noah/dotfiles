@@ -7,29 +7,33 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "calls": {
+    "mute_on_join": true
+  },
+  "cli_default_open_behavior": "new_window",
   "diff_view_style": "split",
   "session": {
     "trust_all_worktrees": true
   },
   "debugger": {
-    "button": false,
+    "button": false
   },
   "search": {
-    "button": false,
+    "button": false
   },
   "diagnostics": {
-    "button": true,
+    "button": true
   },
   "agent_ui_font_size": 14.0,
   "collaboration_panel": {
-    "dock": "right",
+    "dock": "right"
   },
   "icon_theme": "Material Icon Theme",
   "inlay_hints": {
     "enabled": false,
     "toggle_on_modifiers_press": {
-      "alt": true,
-    },
+      "alt": true
+    }
   },
   "buffer_font_size": 11.0,
   "buffer_font_family": "0xProto Nerd Font Mono",
@@ -40,41 +44,75 @@
       "settings": {}
     },
     "mcp-server-context7": {
-      "enabled": true,
+      "enabled": false,
       "remote": false,
       "settings": {
-        "context7_api_key": "",
-      },
+        "context7_api_key": ""
+      }
+    },
+    "context7": {
+      "enabled": true,
+      "url": "https://mcp.context7.com/mcp"
     },
     "Sentry": {
       "settings": {},
 
-      "enabled": true,
-      "url": "https://mcp.sentry.dev/mcp/click-wise-design/northstar",
+      "enabled": false,
+      "url": "https://mcp.sentry.dev/mcp/click-wise-design/northstar"
     },
     "svelte": {
       "enabled": true,
-      "command": "pnpx",
-      "args": ["@sveltejs/mcp"],
-    },
+      "url": "https://mcp.svelte.dev/mcp"
+    }
   },
   "agent_servers": {
+    "codex-acp": {
+      "default_config_options": {
+        "model": "gpt-5.6-terra",
+        "mode": "read-only",
+        "reasoning_effort": "medium"
+      },
+      "type": "registry"
+    },
     "opencode": {
+      "default_config_options": {
+        "model": "openrouter/moonshotai/kimi-k2.7-code"
+      },
       "type": "registry"
     },
     "claude-acp": {
+      // Pinned to adapter 0.50.0 (bundles claude-agent-sdk 0.3.186) to avoid the
+      // permission-allowlist regression in >=0.51. Revert to `"type": "registry"`
+      // once upstream fixes it. Pinned copy: ~/.local/share/zed-pinned-acp
+      "type": "custom",
+      "command": "node",
+      "args": [
+        "/home/noah/.local/share/zed-pinned-acp/node_modules/@agentclientprotocol/claude-agent-acp/dist/index.js"
+      ],
+      "env": {},
       "default_config_options": {
-        "model": "opus[1m]",
-        "mode": "acceptEdits",
-      },
-      "type": "registry",
+        "model": "default",
+        "mode": "auto"
+      }
     },
+    "omp": {
+      "favorite_config_option_values": {
+        "model": ["openrouter/moonshotai/kimi-k3", "anthropic/claude-opus-5"]
+      },
+      "default_config_options": {
+        "model": "anthropic/claude-opus-5",
+        "thinking": "high"
+      },
+      "type": "custom",
+      "command": "omp",
+      "args": ["acp"]
+    }
   },
   "buffer_font_features": {
     "calt": true,
     "kern": true,
     "liga": true,
-    "rlig": true,
+    "rlig": true
   },
   "ui_font_size": 14,
   "ui_font_family": "0xProto Nerd Font Mono",
@@ -88,24 +126,27 @@
     "cursor_shape": "bar",
     "blinking": "on",
     "shell": {
-      "program": "fish",
+      "program": "fish"
     },
-    "font_family": "0xProto Nerd Font Mono",
+    "font_family": "0xProto Nerd Font Mono"
   },
   "preview_tabs": {
     "enable_preview_from_project_panel": false,
-    "enabled": false,
+    "enabled": false
   },
   "git_panel": {
+    "group_by": "staging",
+    "tree_view": true,
     "dock": "left",
     "sort_by_path": false,
-    "fallback_branch_name": "master",
+    "fallback_branch_name": "master"
   },
   "scroll_sensitivity": 2.0,
   "scroll_beyond_last_line": "one_page",
   "minimap": {
     "show": "always",
     "thumb": "always",
+    "max_width_columns": 60
   },
   "hover_popover_delay": 50,
   "cursor_blink": true,
@@ -119,37 +160,37 @@
   "file_types": {
     "makefile": ["*.make"],
     "ignore": [".astylerc"],
-    "JSON": [".prettierrc"],
+    "JSON": [".prettierrc"]
   },
   "telemetry": {
     "diagnostics": false,
-    "metrics": false,
+    "metrics": false
   },
   "base_keymap": "VSCode",
   "theme": "Catppuccin Mocha (Blur)",
   "active_pane_modifiers": {
     "border_size": 0,
-    "inactive_opacity": 0.8,
+    "inactive_opacity": 0.8
   },
   "use_system_path_prompts": false,
   "use_system_prompts": false,
   "title_bar": {
     "show_branch_icon": true,
     "show_user_menu": false,
-    "show_onboarding_banner": false,
+    "show_onboarding_banner": false
   },
   "tab_bar": {
     "show": false,
-    "show_nav_history_buttons": false,
+    "show_nav_history_buttons": false
   },
   "toolbar": {
     "breadcrumbs": false,
-    "quick_actions": false,
+    "quick_actions": false
   },
   "status_bar": {
     "active_language_button": false,
     "cursor_position_button": false,
-    "line_endings_button": true,
+    "line_endings_button": true
   },
   "project_panel": {
     "dock": "left",
@@ -157,36 +198,36 @@
     "hide_root": true,
     "start_open": true,
     "scrollbar": {
-      "show": "never",
+      "show": "never"
     },
     "indent_guides": {
-      "show": "never",
-    },
+      "show": "never"
+    }
   },
   "outline_panel": {
     "dock": "right",
     "default_width": 300,
     "scrollbar": {
-      "show": "never",
+      "show": "never"
     },
     "indent_guides": {
-      "show": "never",
-    },
+      "show": "never"
+    }
   },
   "file_finder": {
-    "modal_max_width": "small",
+    "modal_max_width": "small"
   },
   "scrollbar": {
-    "show": "never",
+    "show": "never"
   },
   "indent_guides": {
-    "enabled": false,
+    "enabled": false
   },
   "gutter": {
     "min_line_number_digits": 3,
     "folds": false,
     "runnables": false,
-    "breakpoints": false,
+    "breakpoints": false
   },
   "extend_comment_on_newline": false,
   "horizontal_scroll_margin": 15,
@@ -197,66 +238,119 @@
   "inline_code_actions": false,
   "edit_predictions_disabled_in": ["comment"],
   "git": {
+    "path_style": "file_path_first",
     "inline_blame": {
-      "enabled": false,
+      "enabled": false
     },
     "branch_picker": {
-      "show_author_name": true,
-    },
+      "show_author_name": true
+    }
   },
   "agent": {
+    "favorite_models": [
+      {
+        "provider": "openrouter",
+        "model": "moonshotai/kimi-k3",
+        "enable_thinking": true
+      }
+    ],
+    "show_turn_stats": true,
+    "play_sound_when_agent_done": "when_hidden",
     "sidebar_side": "right",
     "dock": "right",
     "inline_assistant_model": {
       "provider": "google",
       "model": "gemini-3-flash-preview",
-      "enable_thinking": false,
+      "enable_thinking": false
     },
     "single_file_review": true,
     "default_model": {
-      "provider": "zai-org",
-      "model": "glm-4.7-flash",
+      "enable_thinking": true,
+      "provider": "openrouter",
+      "model": "moonshotai/kimi-k3"
     },
     "commit_message_model": {
       "provider": "anthropic",
-      "model": "claude-4-5-haiku",
+      "model": "claude-4-5-haiku"
     },
     "tool_permissions": {
       "default": "confirm",
       "tools": {
+        "mcp:svelte:svelte-autofixer": {
+          "default": "allow"
+        },
         "terminal": {
           "always_allow": [
-            { "pattern": "^cargo\\s+(build|test|check|fmt|clippy)" },
-            { "pattern": "^pnpm\\s+(build|test|check|format|lint)" },
-            { "pattern": "^git\\s+(status|log|diff)" },
+            {
+              "pattern": "^cargo\\s+(build|test|check|fmt|clippy)"
+            },
+            {
+              "pattern": "^pnpm\\s+(build|test|check|format|lint|vitest)"
+            },
+            {
+              "pattern": "^git\\s+(status|log|diff)"
+            },
+            {
+              "pattern": "^tail\\b"
+            },
+            {
+              "pattern": "^head\\b"
+            },
+            {
+              "pattern": "^grep\\b"
+            },
+            {
+              "pattern": "^echo\\b"
+            }
           ],
           "always_deny": [{ "pattern": "rm\\s+-rf\\s+(/|~)" }],
-          "always_confirm": [{ "pattern": "sudo\\s" }],
+          "always_confirm": [{ "pattern": "sudo\\s" }]
         },
         "edit_file": {
-          "always_deny": [
-            { "pattern": "\\.env" },
-            { "pattern": "\\.(pem|key)$" },
-          ],
-        },
-      },
-    },
+          "always_deny": [{ "pattern": "\\.env" }, { "pattern": "\\.(pem|key)$" }]
+        }
+      }
+    }
   },
   "tabs": {
     "git_status": true,
-    "file_icons": true,
+    "file_icons": true
   },
   "prettier": {
-    "allowed": true,
+    "allowed": true
   },
   "lsp": {
     "rust-analyzer": {
       "initialization_options": {
         "check": {
-          "command": "clippy",
-        },
-      },
+          "command": "clippy"
+        }
+      }
     },
+    "oxlint": {
+      "initialization_options": {
+        "settings": {
+          "configPath": null,
+          "run": "onType",
+          "disableNestedConfig": false,
+          "fixKind": "safe_fix",
+          "unusedDisableDirectives": "deny"
+        }
+      }
+    },
+    "oxfmt": {
+      "initialization_options": {
+        "settings": {
+          "fmt.configPath": null,
+          "run": "onSave"
+        }
+      }
+    },
+    "svelte-language-server": {
+      "binary": {
+        "env": { "NODE_OPTIONS": "--max-old-space-size=3072" }
+      }
+    }
   },
   "theme_overrides": {
     "Catppuccin Espresso (Blur)": {
@@ -264,32 +358,35 @@
         "constant.comment.todo": {
           "color": "#ffffff",
           "background_color": "#4078f2ff",
-          "font_weight": 700,
+          "font_weight": 700
         },
         "string.comment.info": {
           "color": "#ffffff",
           "background_color": "#50a14fff",
-          "font_weight": 700,
+          "font_weight": 700
         },
         "keyword.comment.warn": {
           "color": "#ffffff",
           "background_color": "#c18401ff",
-          "font_weight": 700,
+          "font_weight": 700
         },
         "property.comment.error": {
           "color": "#ffffff",
           "background_color": "#ca1243ff",
-          "font_weight": 700,
+          "font_weight": 700
         },
         "emphasis.comment.user": {
           "color": "#ffffff",
           "background_color": "#000000dd",
-          "font_weight": 700,
-        },
-      },
-    },
+          "font_weight": 700
+        }
+      }
+    }
   },
   "language_models": {
+    "lmstudio": {
+      "api_url": "http://10.0.0.7:1234/api/v0"
+    },
     "openai_compatible": {
       "Uranus": {
         "api_url": "http://uranus:1234/v1",
@@ -302,33 +399,273 @@
               "tools": true,
               "images": false,
               "parallel_tool_calls": false,
-              "prompt_cache_key": false,
-            },
-          },
-        ],
-      },
-    },
+              "prompt_cache_key": false
+            }
+          }
+        ]
+      }
+    }
   },
   "languages": {
     "Rust": {
       "format_on_save": "on",
-      "formatter": "language_server",
+      "formatter": "language_server"
     },
+    // "Svelte": {
+    //   "format_on_save": "on",
+    //   "code_actions_on_format": {
+    //     "source.fixAll.eslint": true,
+    //   },
+    //   "formatter": {
+    //     "external": {
+    //       "command": "pnpm",
+    //       "arguments": ["oxfmt", "--stdin-filepath", "{buffer_path}"],
+    //     },
+    //   },
+    // },
+    "Svelte": {
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ],
+      "language_servers": ["svelte-language-server", "!vtsls", "..."]
+    },
+    "CSS": {
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "GraphQL": {
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "Handlebars": {
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "HTML": {
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "JavaScript": {
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        },
+        {
+          "code_action": "source.fixAll.oxc"
+        }
+      ],
+      "language_servers": ["tsgo", "!vtsls", "!typescript-language-server", "..."]
+    },
+    "JSON": {
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "JSON5": {
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "JSONC": {
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "Less": {
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "Markdown": {
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "MDX": {
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "SCSS": {
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "TypeScript": {
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ],
+      "language_servers": ["tsgo", "!vtsls", "!typescript-language-server", "..."]
+    },
+    "TSX": {
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ],
+      "language_servers": ["tsgo", "!vtsls", "!typescript-language-server", "..."]
+    },
+    "Vue.js": {
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    },
+    "YAML": {
+      "format_on_save": "on",
+      "prettier": {
+        "allowed": false
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt"
+          }
+        }
+      ]
+    }
   },
   "profiles": {
     "minimal": {
       "settings": {
         "status_bar": {
-          "experimental.show": false,
+          "experimental.show": false
         },
         "minimap": {
-          "show": "never",
+          "show": "never"
         },
         "title_bar": {
           "show_branch_name": false,
-          "show_project_items": false,
-        },
-      },
-    },
-  },
+          "show_project_items": false
+        }
+      }
+    }
+  }
 }
