@@ -1,6 +1,6 @@
 ---
 name: ui-ux-guide
-description: Project-independent UI/UX rules. Use whenever creating, editing, designing, or reviewing any user-facing surface (pages, forms, modals, components, dashboards, dialogs, panels, tables, paywalls, anything that renders). Covers the reuse procedure, token discipline, scannable layout (edge-locked alignment, relative emphasis, container nesting, row differentiation), optimistic-update policy, required button/input states, feedback and wait-time UX, modern CSS (floating panels, anchor positioning, scroll-margin, scroll-snap, `:user-invalid`, `:focus-visible`, the `lh` unit, `field-sizing: content`), rendered-UI verification, dashboard density, behavioral design, paywall structure (one offer, annual default, trial over discount), product loops, and premium feel (undo, error recovery, cross-screen consistency, designed failure/offline/empty states, breaking the product on purpose). Pair with the project's `design-system` skill when one exists; it names the tokens, components and commands.
+description: Project-independent UI/UX rules. Use whenever creating, editing, designing, or reviewing any user-facing surface (pages, forms, modals, components, dashboards, dialogs, panels, tables, paywalls, anything that renders). Covers the reuse procedure, token discipline, scannable layout (edge-locked alignment, relative emphasis, container nesting, row differentiation), optimistic-update policy, required button/input states, feedback and wait-time UX, modern CSS (floating panels, anchor positioning, scroll-margin, scroll-snap, `:user-invalid`, `:focus-visible`, the `lh` unit, `field-sizing: content`), rendered-UI verification, dashboard density, behavioral design, paywall structure (one offer, annual default, trial over discount), product loops, premium feel (undo, error recovery, cross-screen consistency, designed failure/offline/empty states, breaking the product on purpose), and reading intent (when a click should wait, submenu aim triangles, tooltip warm-up, drag auto-scroll, act-then-undo over confirm modals, autosave, commit on release). Pair with the project's `design-system` skill when one exists; it names the tokens, components and commands.
 ---
 
 # UI/UX guide
@@ -66,6 +66,7 @@ Optimistic is the default. The UI shows the result of a mutation immediately, th
 - **Money-affecting actions** (payments, invoice send, refund): show a deliberate spinner; see §6 reassurance delay.
 - **Multi-step flows** where the user waits on confirmation (auth, MFA enrollment).
 - **Server-generated IDs the user immediately needs**: the placeholder holds fake data, so if the next interaction depends on the real ID, race conditions follow. Use a real spinner.
+- **Irreversible actions** (hard delete, bulk send, anything with no undo): deliberate, behind a confirm step (§19). A soft-deleted item is reversible, so it can disappear at once with an undo toast.
 
 ### Forms
 
@@ -97,7 +98,7 @@ Inputs additionally need:
 
 ## 7. Feedback (every action gets a response)
 
-- **Toasts** for errors and high-stakes successes.
+- **Toasts** for errors, high-stakes successes, and Undo after an action that ran without a confirm step (§19).
 - **Inline confirmation** (e.g. "Saved" near the field) for low-stakes saves.
 - **Empty states** carry a clear next action. Never an unexplained blank panel.
 - **Loading**: skeleton shimmer that matches the final layout, then spinner, then text, in that order of preference.
@@ -143,6 +144,7 @@ Every dropdown, listbox, action menu and autocomplete list hangs off its trigger
 - place under the anchor, flipping above and clamping to the viewport when it would not fit
 - follow the anchor on scroll and resize
 - dismiss on outside click and Escape, and cooperate with modals (Escape closes the panel, not the modal underneath)
+- keep a submenu open while the pointer travels toward it along the aim triangle (§19)
 
 Never hand-roll `position: absolute` plus a window click listener in a component. Without a shared utility, CSS anchor positioning is the native starting point, with no `getBoundingClientRect` and no scroll listeners:
 
@@ -324,7 +326,7 @@ Combine with `:has()` for precise targeting (`.list:not(:has(.item))` means empt
 - A local state mirror with a hand-written rollback where the framework has an optimistic mechanism (§5).
 - Reloading the whole page after a mutation when the touched queries can be refreshed.
 - Spinner-then-success for a trivial mutation that should be optimistic.
-- Optimistic updates on payment, auth or destructive actions that should be deliberate.
+- Optimistic updates on payment, auth or irreversible destructive actions that should be deliberate.
 - A font, color, radius, or shadow that has a near-equivalent token already.
 - **Overriding heading `font-size` in a component** instead of picking the right heading tag.
 - Magic z-index numbers instead of the layer scale.
@@ -357,6 +359,11 @@ Combine with `:has()` for precise targeting (`.list:not(:has(.item))` means empt
 - One concept or action named two ways on two screens ("workspace" here, "team" there; "Delete" here, "Remove" there) (§18).
 - "Something went wrong" with no cause and no next step (§18).
 - A flow that ends in a bare redirect with no word on what was saved or what comes next (§18).
+- A double-click or long-press action that competes with the single action and fires without waiting, or a wait added where the second input only extends the first (§19).
+- A submenu that closes when the pointer cuts diagonally toward it, or one held open by a plain close timeout instead of the aim triangle (§19).
+- A confirm modal on a reversible action where acting at once plus an Undo toast would do (§19).
+- A Save/Cancel footer on a settings page whose fields could each save on change (§19).
+- An action button that fires on `pointerdown` or `mousedown` instead of `click` (§19).
 
 ## 14. Dashboard design principles
 
@@ -458,7 +465,7 @@ Workspace data is multiplayer. Every row one member edits is visible to other me
 
 - **Refresh what the other person is looking at.** After a mutation, refresh every query that reads the changed row, or some view keeps serving stale data (§5). An optimistic placeholder only repairs the acting client.
 - **Expect boundary pushers.** Double submits, two open tabs, a form posted an hour late, an id belonging to another account. Disable in-flight submits and validate on the server; a client-only guard is not a rule.
-- **Build the safety net.** Destructive actions go through soft delete so a mistake is recoverable, and they stay deliberate rather than optimistic (§5). Reversible beats confirmable: an undo is better than a second confirm dialog.
+- **Build the safety net.** Destructive actions go through soft delete so a mistake is recoverable. With that in place the delete runs at once and offers Undo, which beats a second confirm dialog (§19). Only a hard delete with no way back stays deliberate (§5).
 - **Show who.** When state is shared, attribution is part of the UI: who changed it and when, with an avatar (§1). An "Assigned to" field with no face is a multiplayer surface pretending to be single player.
 
 ## 18. Premium feel lives in the unglamorous states
@@ -500,3 +507,41 @@ Open the product and break it before calling a surface done. Each break below pr
 - Fail a payment with the processor's decline test card.
 - Empty every list: a fresh account, a filter that matches nothing, a user without permission.
 - Submit invalid data, double-click submit, and let the session expire with unsaved work open.
+
+## 19. Intent: wait, infer, or act first
+
+Every input is ambiguous until the software decides two things: what the user meant, and how sure they were. There are three ways to settle it, and each has a price. Waiting costs time. Inferring costs certainty, because the guess can be wrong. Acting first costs trust, because the user has to believe there is a way back. Pick the cheapest one the interaction allows, and pick it on purpose.
+
+### Wait only when actions compete
+
+One input that can start two different actions has to wait to find out which. A press on an AirPod stem takes about 700ms to pause the music, because a second or third press means skip. The phone pauses in under 300ms, since play, next and previous are separate buttons and nothing is ambiguous.
+
+- **Compete or extend.** Delay only when the first action would be wrong if a second input follows. A task row where one click opens the detail page and a double-click renames inline competes. Navigating on the first click makes the rename impossible. A table cell that selects on the first click and edits on the second extends. The selection is right whether or not a second click comes, so it fires instantly. Design double-click and long-press as extensions of the single action wherever you can, and no delay is needed.
+- **How to wait.** Schedule the single-click action and cancel it when a second click arrives (`event.detail === 2` on the next `click`, or `dblclick`). Raymond Chen documented this for Windows in 2009. No web API exposes the OS double-click time. Windows defaults to 500ms, so a window much shorter than that turns a slow double-click into a navigation.
+- **Is the shortcut worth the delay?** Every single click now pays the wait. The alternative is to remove the competition: rename only on the detail page, and the row opens instantly. Keep the delay when the shortcut earns it, as skipping without reaching for the phone or renaming in place in a list does.
+
+### Infer from movement
+
+Ohio State paved its quad in 1914 along the paths students had already worn into the grass. Pointer movement is the UI's worn path. Read where the cursor is heading and how fast, then act on the likely target without asking the user to wait.
+
+- **Submenu aim triangle.** When the pointer leaves an item whose submenu is open, draw a triangle from the pointer to the submenu's near top and bottom corners. Keep the submenu open while the pointer stays inside that triangle and keeps moving. If it slows down or stops, the user is aiming at the item under the pointer, so switch to that item's submenu. Linear, Notion and Attio all do this, and Ben Kamens documented it in 2013. Use the floating-panel mechanism's version (Floating UI `safePolygon()`, Radix submenus) instead of a close timeout. A timeout makes moving down the list sluggish and still closes on a slow diagonal.
+- **Tooltip warm-up.** The first tooltip waits (around 500 to 700ms) so a cursor passing over the toolbar doesn't trigger it. Once one has shown, neighboring triggers show theirs instantly as long as the pointer moves between them within a short skip window (around 300ms). The user has shown they want labels, so stop making them wait for each one (§11 Tooltips).
+- **Dwell before an edge reveal.** A collapsed sidebar that peeks out on hover opens only after the pointer rests at the edge for a moment, as Notion's does. A pointer sweeping past on its way to the browser tabs or a scrollbar should not open it.
+- **Show the guess when it can be wrong.** A row dragged near the bottom of a list might be meant to drop there, or the user might want the list to scroll so they can drop it further down. Don't make that a binary switch. Draw the drop indicator where the row will land, and make the edge zone a gradient where scroll speed grows the closer the pointer gets to the edge. A visible guess is corrected by moving a few pixels; a hidden one is discovered after the drop.
+
+### Act first, then offer the way back
+
+Most of the time the user meant it. A confirm modal makes the 99% confirm what they already intended to protect the 1% who slipped, and the 99% learn to click through it without reading (§18).
+
+- **Delete, then undo.** Remove the item at once and show a toast with Undo (§7). Back it with a soft delete: the item moves to a "Recently deleted" list and a job purges it after 30 days, so recovery outlives the toast. The user only touches the toast when they made a mistake.
+- **Delay the side effect, not the feedback.** Gmail says the message is sent right away and holds the actual send for 5 seconds (configurable up to 30) with Undo in the toast. That is seven times the AirPod delay and nobody notices it, because the UI already reported success. Use this for anything that leaves the system and can't be recalled once it has (an email, a notification to other people, an outgoing webhook).
+- **Autosave instead of Save.** Settings save each field on change and confirm inline with "Saved" (§7). Editors save on their own, periodically or on change. Autosave needs a way back to replace Cancel: undo within the session, and version history for documents. A user might save a file a hundred times for every once they need an old version, so the history can live behind a menu.
+- **Keep the confirm for the irreversible and the unusual.** Moving money, a bulk send (an email to 10,000 recipients), a hard delete with no soft delete behind it, an action the user rarely performs. These keep a confirm step and stay deliberate (§5, §6 reassurance delay). Undo works only when there is something to undo.
+
+### Commit on release, so every press can be cancelled
+
+Waiting, inferring and acting first all guess how sure the user is. Committing on release lets the user say so.
+
+- **Buttons fire on release.** Bind actions to `click`, which fires only when press and release land on the same element. Pressing, sliding off and releasing cancels. That is a built-in cancel on every button, and an action bound to `pointerdown` or `mousedown` throws it away. A camera shutter works the same way: half press focuses and shows the shot, full press takes it.
+- **Menu triggers open on press.** A button that opens a menu, select or popover opens on `pointerdown`, so the user can press, drag to an item and release on it in one motion. Releasing over the trigger leaves the menu open. These look like buttons but behave as toggles, which is why the two follow opposite rules. Check that the open menu commits the item under the pointer on release.
+- **Gestures show how close they are to committing.** Pull to refresh and swipe to delete track the finger and show progress toward the threshold (the spinner fills, the row reveals its red action). Released short of the threshold, they spring back and nothing happens. Cmd-Tab on macOS shows the switcher while held, commits on key release, and Escape cancels before that. Any press-and-hold interaction follows the same rule: show the pending outcome, commit on release, and let Escape or moving back cancel.
