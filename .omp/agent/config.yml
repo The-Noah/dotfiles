@@ -232,6 +232,321 @@ bash:
       approval: prompt
     - match: "*wrangler queues purge*"
       approval: prompt
+    - match: "*npm install*"
+      approval: prompt
+      eval: true
+    - match: "*npm i *"
+      approval: prompt
+      eval: true
+    - match: "*npm i"
+      approval: prompt
+      eval: true
+    - match: "*npm ci*"
+      approval: prompt
+      eval: true
+    - match: "*npm add *"
+      approval: prompt
+      eval: true
+    - match: "*npm un*"
+      approval: prompt
+      eval: true
+    - match: "*npm remove*"
+      approval: prompt
+      eval: true
+    - match: "*npm rm*"
+      approval: prompt
+      eval: true
+    - match: "*npm up*"
+      approval: prompt
+      eval: true
+    - match: "*npm self-update*"
+      approval: prompt
+      eval: true
+    - match: "yarn"
+      approval: prompt
+      eval: true
+    - match: "*yarn add *"
+      approval: prompt
+      eval: true
+    - match: "*yarn install*"
+      approval: prompt
+      eval: true
+    - match: "*yarn remove *"
+      approval: prompt
+      eval: true
+    - match: "*yarn up*"
+      approval: prompt
+      eval: true
+    - match: "*yarn global add *"
+      approval: prompt
+      eval: true
+    - match: "*yarn global remove *"
+      approval: prompt
+      eval: true
+    - match: "*yarn global upgrade*"
+      approval: prompt
+      eval: true
+    - match: "*bun add *"
+      approval: prompt
+      eval: true
+    - match: "*bun install*"
+      approval: prompt
+      eval: true
+    - match: "*bun i *"
+      approval: prompt
+      eval: true
+    - match: "*bun i"
+      approval: prompt
+      eval: true
+    - match: "*bun remove *"
+      approval: prompt
+      eval: true
+    - match: "*bun rm *"
+      approval: prompt
+      eval: true
+    - match: "*bun up*"
+      approval: prompt
+      eval: true
+    - match: "*pip install*"
+      approval: prompt
+      eval: true
+    - match: "*pip3 install*"
+      approval: prompt
+      eval: true
+    - match: "*pip uninstall*"
+      approval: prompt
+      eval: true
+    - match: "*pip3 uninstall*"
+      approval: prompt
+      eval: true
+    - match: "*uv add *"
+      approval: prompt
+      eval: true
+    - match: "*uv remove *"
+      approval: prompt
+      eval: true
+    - match: "*uv sync*"
+      approval: prompt
+      eval: true
+    - match: "*uv lock --upgrade*"
+      approval: prompt
+      eval: true
+    - match: "*uv lock -U*"
+      approval: prompt
+      eval: true
+    - match: "*uv tool install *"
+      approval: prompt
+      eval: true
+    - match: "*uv tool uninstall *"
+      approval: prompt
+      eval: true
+    - match: "*uv tool upgrade *"
+      approval: prompt
+      eval: true
+    - match: "*uv python install*"
+      approval: prompt
+      eval: true
+    - match: "*uv python uninstall*"
+      approval: prompt
+      eval: true
+    - match: "*uv self update*"
+      approval: prompt
+      eval: true
+    - match: "*cargo add *"
+      approval: prompt
+      eval: true
+    - match: "*cargo remove *"
+      approval: prompt
+      eval: true
+    - match: "*cargo rm *"
+      approval: prompt
+      eval: true
+    - match: "*cargo install *"
+      approval: prompt
+      eval: true
+    - match: "*cargo uninstall *"
+      approval: prompt
+      eval: true
+    - match: "*cargo update*"
+      approval: prompt
+      eval: true
+    - match: "*cargo binstall *"
+      approval: prompt
+      eval: true
+    - match: "*rustup update*"
+      approval: prompt
+      eval: true
+    - match: "*rustup toolchain install *"
+      approval: prompt
+      eval: true
+    - match: "*rustup toolchain uninstall *"
+      approval: prompt
+      eval: true
+    - match: "*rustup component add *"
+      approval: prompt
+      eval: true
+    - match: "*rustup component remove *"
+      approval: prompt
+      eval: true
+    - match: "*rustup target add *"
+      approval: prompt
+      eval: true
+    - match: "*rustup target remove *"
+      approval: prompt
+      eval: true
+    - match: "*rustup self update*"
+      approval: prompt
+      eval: true
+    - match: "*cargo install-update*"
+      approval: prompt
+      eval: true
+    - match: "*cargo upgrade*"
+      approval: prompt
+      eval: true
+    - match: "*cargo quickinstall *"
+      approval: prompt
+      eval: true
+    - match: "*cargo-binstall *"
+      approval: prompt
+      eval: true
+    - match: "*cargo +* install *"
+      approval: prompt
+      eval: true
+    - match: "*cargo +* uninstall *"
+      approval: prompt
+      eval: true
+    - match: "*cargo +* update"
+      approval: prompt
+      eval: true
+    - match: "*cargo +* update *"
+      approval: prompt
+      eval: true
+    - match: "*rustup install *"
+      approval: prompt
+      eval: true
+    - match: "*rustup uninstall *"
+      approval: prompt
+      eval: true
+    - match: "*rustup toolchain add *"
+      approval: prompt
+      eval: true
+    - match: "*rustup toolchain remove *"
+      approval: prompt
+      eval: true
+    - match: "*rustup default *"
+      approval: prompt
+      eval: true
+    - match: "*rustup self uninstall*"
+      approval: prompt
+      eval: true
+    - match: "*go get *"
+      approval: prompt
+      eval: true
+    - match: "*go install *"
+      approval: prompt
+      eval: true
+    - match: "*dotnet add *package *"
+      approval: prompt
+      eval: true
+    - match: "*dotnet remove *package *"
+      approval: prompt
+      eval: true
+    - match: "*dotnet tool install *"
+      approval: prompt
+      eval: true
+    - match: "*dotnet tool uninstall *"
+      approval: prompt
+      eval: true
+    - match: "*dotnet tool update *"
+      approval: prompt
+      eval: true
+    - match: "*dotnet workload install *"
+      approval: prompt
+      eval: true
+    - match: "*dotnet workload update*"
+      approval: prompt
+      eval: true
+    - match: "*dotnet workload uninstall *"
+      approval: prompt
+      eval: true
+    - match: "*pacman -S *"
+      approval: prompt
+      eval: true
+    - match: "*pacman -Sy*"
+      approval: prompt
+      eval: true
+    - match: "*pacman -Su*"
+      approval: prompt
+      eval: true
+    - match: "*pacman -R*"
+      approval: prompt
+      eval: true
+    - match: "*pacman -U *"
+      approval: prompt
+      eval: true
+    - match: "*paru -S *"
+      approval: prompt
+      eval: true
+    - match: "*paru -Sy*"
+      approval: prompt
+      eval: true
+    - match: "*paru -Su*"
+      approval: prompt
+      eval: true
+    - match: "*paru -R*"
+      approval: prompt
+      eval: true
+    - match: "*paru -U *"
+      approval: prompt
+      eval: true
+    - match: "*yay -S *"
+      approval: prompt
+      eval: true
+    - match: "*yay -Sy*"
+      approval: prompt
+      eval: true
+    - match: "*yay -Su*"
+      approval: prompt
+      eval: true
+    - match: "*yay -R*"
+      approval: prompt
+      eval: true
+    - match: "*yay -U *"
+      approval: prompt
+      eval: true
+    - match: "paru"
+      approval: prompt
+      eval: true
+    - match: "yay"
+      approval: prompt
+      eval: true
+    - match: "*omp install *"
+      approval: prompt
+      eval: true
+    - match: "*omp update*"
+      approval: prompt
+      eval: true
+    - match: "*omp plugin install *"
+      approval: prompt
+      eval: true
+    - match: "*omp plugin uninstall *"
+      approval: prompt
+      eval: true
+    - match: "*omp plugin link *"
+      approval: prompt
+      eval: true
+    - match: "*omp plugin upgrade*"
+      approval: prompt
+      eval: true
+    - match: "*omp skill install *"
+      approval: prompt
+      eval: true
+    - match: "*omp skill update*"
+      approval: prompt
+      eval: true
+    - match: "*omp skill uninstall *"
+      approval: prompt
+      eval: true
     - match: "*sudo *"
       approval: prompt
     - match: "*rm -rf /*"
