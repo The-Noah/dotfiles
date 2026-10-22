@@ -198,12 +198,6 @@ actions:
     tags: [dotfiles, omp]
 
   - action: file.link
-    name: omp keybindings.json
-    src: "{{ user.home }}/dotfiles/.omp/agent/keybindings.json"
-    dest: "{{ user.home }}/.omp/agent/keybindings.json"
-    tags: [dotfiles, omp]
-
-  - action: file.link
     name: omp keybindings.yml
     src: "{{ user.home }}/dotfiles/.omp/agent/keybindings.yml"
     dest: "{{ user.home }}/.omp/agent/keybindings.yml"
