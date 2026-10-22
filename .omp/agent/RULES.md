@@ -11,8 +11,9 @@ this and appends a reminder to the tool result when a streak builds. Do not wait
   arguments were unknowable before the previous result.
 - Reading four files you might need beats four turns discovering you needed them.
 - Compound bash is encouraged: `cd` is not needed (use `cwd`), but `a && b && c` in one
-  call is one turn instead of three. Only a *bare* `rg`/`find`/`grep -r`/`sed -i` gets
-  rerouted to its tool; the same command inside a pipeline runs.
+  call is one turn instead of three. Only a *bare* `rg`/`find`/`grep -r` gets rerouted to its
+  tool; the same command inside a pipeline runs. In-place `sed -i`/`perl -i` is blocked in
+  any position: use `edit`.
 - Serialize only on a true data dependency, where the next call's arguments come out of
   this call's output.
 
@@ -46,12 +47,12 @@ second turn. That pair fired 342 times in 14 days. Collapse it:
 
 The agent name selects the model, so pick it by what the work needs, not by habit.
 
-- `scout`, `code-explorer`, `librarian` run Sonnet: read-only mapping, breadth searches,
-  dependency and API lookups.
-- `sonic` runs Haiku: strictly mechanical edits and data collection against a pattern you
-  already worked out.
-- `task`, `code-architect`, `code-reviewer`, `reviewer`, `security-reviewer` run Opus:
-  design, judgment, correctness and security review.
+- `scout` runs Haiku at high thinking: read-only mapping, breadth searches, dependency and
+  API lookups.
+- `sonic` runs Haiku at medium thinking: strictly mechanical edits and data collection
+  against a pattern you already worked out.
+- `task`, `reviewer`, `security-reviewer` run Opus: design, judgment, correctness and
+  security review.
 - Pass `effort: lo|med|hi` per spawn to dial thinking inside the tier. Reach for `hi` only
   when the task genuinely turns on it.
 - Never hand read-only research to an Opus agent because the question feels important.
@@ -61,7 +62,8 @@ Shape matters as much as tier:
 
 - **Never spawn exactly one subagent.** Half of all `task` calls did, and a single child is
   pure overhead: spawn, wait, integrate, no parallelism. Either do it inline or fan out two
-  or more genuinely independent slices.
+  or more genuinely independent slices. The one exception is the `designer` consult: it is a
+  single blocking call by design, so dispatch it alone.
 - **Bound every brief.** State the budget in the task text ("≤20 tool calls, then report
   what you found"). Unbounded scouts have run 400 messages and an hour.
 - **Do not idle in `hub wait`.** 5.5h in 14 days went to a blocked main agent. Wait only
@@ -72,16 +74,17 @@ Shape matters as much as tier:
 
 # Reuse the running dev server
 
-A dev server for the project is already up. The user starts it outside the session and
-leaves it running.
+When the project has a dev server, the user starts it outside the session and leaves it
+running.
 
 - NEVER start, restart, or `hub start` a dev server, watcher, or `preview` process on your
   own initiative. A global `tool_call` guard blocks the attempt when one is already listening.
 - Locate it instead: run `node ~/.omp/agent/bin/dev-servers.mjs` from the repo. It lists the
   ports owned by processes running inside the repo on Linux, macOS and Windows (5173 vite,
   8787 wrangler, 3000 next, 4321 astro). Use `http://localhost:<port>`.
-- Nothing listening means it crashed. Say so, start at most one replacement when you
-  actually need it to verify a change, and tell the user you started it.
+- Nothing listening in a project that has a dev server means it crashed. Say so, start at
+  most one replacement when you actually need it to verify a change, and tell the user you
+  started it.
 - Output from a server you did not start is not visible to `hub logs`. Verify through the
   app itself (HTTP response, devtools, screenshots), not by tailing logs.
 

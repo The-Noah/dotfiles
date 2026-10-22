@@ -15,6 +15,11 @@ import type { ExtensionAPI } from "@oh-my-pi/pi-coding-agent";
  *   off     disabled
  *   nudge   (default) one free-riding notice per session, never blocks
  *   strict  block every UI write until a designer consult is recorded
+ *
+ * Only the main session is gated. The factory is rebound to every subagent and
+ * advisor in the process, and they share this module's state: a child's
+ * session_start would wipe the parent's recorded consult, and a scout or the
+ * designer itself would be told to dispatch a designer it cannot spawn.
  */
 
 type Mode = "off" | "nudge" | "strict";
@@ -129,12 +134,18 @@ export default function designGate(pi: ExtensionAPI) {
     return;
   }
 
-  pi.on("session_start", async () => {
+  pi.on("session_start", async (_event, ctx) => {
+    if (ctx.agent?.kind === "sub") {
+      return;
+    }
     state.consulted = false;
     state.notified = false;
   });
 
-  pi.on("tool_call", async (event) => {
+  pi.on("tool_call", async (event, ctx) => {
+    if (ctx.agent?.kind === "sub") {
+      return;
+    }
     const tool = event.toolName.toLowerCase();
 
     if (tool === "task" && dispatchesDesigner(event.input)) {
@@ -155,7 +166,10 @@ export default function designGate(pi: ExtensionAPI) {
   });
 
   // Nudge mode never blocks: the notice rides on a result the agent already gets.
-  pi.on("tool_result", async (event) => {
+  pi.on("tool_result", async (event, ctx) => {
+    if (ctx.agent?.kind === "sub") {
+      return;
+    }
     const tool = event.toolName.toLowerCase();
 
     if (MODE !== "nudge" || state.consulted || state.notified || event.isError) {

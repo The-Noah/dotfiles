@@ -28,18 +28,44 @@ const CHEAP_STREAK = 3;
 /** Consecutive solo mutating batches before the first reminder. */
 const MUTATING_STREAK = 4;
 
-type Batch = { size: number; tools: string[] };
+type Batch = { size: number; tools: string[]; summarized: Set<string> };
 
-const state = {
-  lastCallAt: 0,
-  open: undefined as Batch | undefined,
-  cheapStreak: 0,
-  mutatingStreak: 0,
-  /** Files read as a structural summary, awaiting a ranged follow-up read. */
-  summarized: new Set<string>(),
-  pending: undefined as string | undefined,
-  reminders: 0
+type State = {
+  lastCallAt: number;
+  open: Batch | undefined;
+  cheapStreak: number;
+  mutatingStreak: number;
+  /** Files the previous batch read as a structural summary; only the very next turn can re-read them as a two-step. */
+  summarized: Set<string>;
+  pending: "reread" | undefined;
 };
+
+function freshState(): State {
+  return {
+    lastCallAt: 0,
+    open: undefined,
+    cheapStreak: 0,
+    mutatingStreak: 0,
+    summarized: new Set(),
+    pending: undefined
+  };
+}
+
+/**
+ * The factory is rebound to every subagent session in the same process, so module
+ * state would mix parallel children into one batch timeline. Each session runner
+ * owns one `sessionManager`, which keys its own state.
+ */
+const sessions = new WeakMap<object, State>();
+
+function stateFor(ctx: { sessionManager: object }): State {
+  let state = sessions.get(ctx.sessionManager);
+  if (!state) {
+    state = freshState();
+    sessions.set(ctx.sessionManager, state);
+  }
+  return state;
+}
 
 function basePath(value: unknown): string {
   if (typeof value !== "string" || value.length === 0 || value.includes("://")) {
@@ -60,7 +86,8 @@ function hasSelector(value: unknown): boolean {
   return tail.lastIndexOf(":") > 0;
 }
 
-function closeBatch(batch: Batch): void {
+function closeBatch(state: State, batch: Batch): void {
+  state.summarized = batch.summarized;
   const [only] = batch.tools;
   if (batch.size === 1 && only && CHEAP[only]) {
     state.cheapStreak += 1;
@@ -104,22 +131,17 @@ function reminder(kind: "cheap" | "mutating" | "reread", streak: number): string
 export default function batchGuard(pi: ExtensionAPI) {
   pi.setLabel("Batch guard");
 
-  pi.on("session_start", async () => {
-    state.lastCallAt = 0;
-    state.open = undefined;
-    state.cheapStreak = 0;
-    state.mutatingStreak = 0;
-    state.summarized.clear();
-    state.pending = undefined;
-    state.reminders = 0;
+  pi.on("session_start", async (_event, ctx) => {
+    sessions.set(ctx.sessionManager, freshState());
   });
 
-  pi.on("tool_call", async (event) => {
+  pi.on("tool_call", async (event, ctx) => {
+    const state = stateFor(ctx);
     const now = Date.now();
     const tool = event.toolName.toLowerCase();
 
     if (state.open && now - state.lastCallAt > BATCH_GAP_MS) {
-      closeBatch(state.open);
+      closeBatch(state, state.open);
       state.open = undefined;
     }
     state.lastCallAt = now;
@@ -128,7 +150,7 @@ export default function batchGuard(pi: ExtensionAPI) {
       state.open.size += 1;
       state.open.tools.push(tool);
     } else {
-      state.open = { size: 1, tools: [tool] };
+      state.open = { size: 1, tools: [tool], summarized: new Set() };
     }
 
     if (tool !== "read") {
@@ -139,22 +161,23 @@ export default function batchGuard(pi: ExtensionAPI) {
     if (!path) {
       return;
     }
-    // A ranged read of a file whose summary we just took is the two-step.
+    // A ranged read, alone, of a file the previous turn took as a summary is the two-step.
     if (hasSelector(raw) && state.summarized.has(path) && state.open.size === 1) {
       state.summarized.delete(path);
       state.pending = "reread";
     } else if (!hasSelector(raw)) {
-      state.summarized.add(path);
+      state.open.summarized.add(path);
     }
   });
 
-  pi.on("tool_result", async (event) => {
+  pi.on("tool_result", async (event, ctx) => {
     const tool = event.toolName.toLowerCase();
     if (event.isError || (!CHEAP[tool] && !MUTATING[tool])) {
       return;
     }
+    const state = stateFor(ctx);
 
-    let kind = state.pending;
+    let kind: "cheap" | "mutating" | "reread" | undefined = state.pending;
     let streak = 0;
 
     if (!kind && state.cheapStreak >= CHEAP_STREAK && CHEAP[tool]) {
@@ -171,13 +194,9 @@ export default function batchGuard(pi: ExtensionAPI) {
       return;
     }
     state.pending = undefined;
-    state.reminders += 1;
 
     return {
-      content: [
-        ...event.content,
-        { type: "text" as const, text: `\n${reminder(kind as "cheap" | "mutating" | "reread", streak)}` }
-      ]
+      content: [...event.content, { type: "text" as const, text: `\n${reminder(kind, streak)}` }]
     };
   });
 }
