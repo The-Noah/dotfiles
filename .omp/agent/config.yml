@@ -5,7 +5,7 @@ theme:
 setupVersion: 2
 defaultThinkingLevel: auto
 modelRoles:
-  smol: anthropic/claude-sonnet-5-5:high
+  smol: anthropic/claude-haiku-5-5:high
   tiny: anthropic/claude-haiku-5-5:medium
   designer: openrouter/moonshotai/kimi-k3:high
   vision: openrouter/moonshotai/kimi-k3:max
@@ -17,8 +17,6 @@ task:
   showResolvedModelBadge: true
   agentModelOverrides:
     scout: "@smol"
-    code-explorer: "@smol"
-    librarian: "@smol"
     sonic: "@tiny"
   softRequestBudget: 80
 disabledExtensions: []
@@ -42,6 +40,7 @@ cycleOrder:
   - default
   - smol
   - designer
+  - tiny
   - advisor
 memory:
   backend: local
@@ -269,22 +268,6 @@ composer:
   shape: box
 skills:
   ignoredSkills:
-    - assimilate
-    - babysit
-    - blueprints
-    - call
-    - check-forbidden-markers
-    - contrib
-    - doctor
-    - forever
-    - help
-    - observe
-    - plugins
-    - project-install
-    - resume
-    - retrospect
-    - user-install
-    - yolo
     - caveman*
     - you-*
 edit:
@@ -294,3 +277,5 @@ compaction:
   idleEnabled: true
 dev:
   autoqaConsent: granted
+claudeResets:
+  autoRedeem: "no"
