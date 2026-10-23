@@ -180,7 +180,7 @@
     "show_onboarding_banner": false
   },
   "tab_bar": {
-    "show": false,
+    "show": true,
     "show_nav_history_buttons": false
   },
   "toolbar": {
