@@ -43,6 +43,7 @@ Read the repo before asking anything. On a large repo fan out two `scout` tasks 
 | §13 Anti-patterns | repo-specific mistakes the code or hooks reject |
 | §14 to §17 | dashboard components, behavioral patterns (upgrade prompts, gates), product metaphors, sound, multiplayer/shared state |
 | §18 to §19 | error/offline/empty state components, undo toast helper, soft-delete or "Recently deleted" mechanism, submenu safe-area and tooltip delay settings in the menu/tooltip library, double-click handling, autosave pattern |
+| §20 Money trust | fee/quote breakdown component, transaction status enum and the screen each state renders, freeze and limit controls, balance-masking toggle and where it persists, support channels and their entry points |
 
 A fact you could not confirm in code is not written. Keep it for the questions below.
 

@@ -1,6 +1,6 @@
 ---
 name: ui-ux-guide
-description: Project-independent UI/UX rules. Use whenever creating, editing, designing, or reviewing any user-facing surface (pages, forms, modals, components, dashboards, dialogs, panels, tables, paywalls, anything that renders). Covers the reuse procedure, token discipline, scannable layout (edge-locked alignment, relative emphasis, container nesting, row differentiation), optimistic-update policy, required button/input states, feedback and wait-time UX, modern CSS (floating panels, anchor positioning, scroll-margin, scroll-snap, `:user-invalid`, `:focus-visible`, the `lh` unit, `field-sizing: content`), rendered-UI verification, dashboard density, behavioral design, paywall structure (one offer, annual default, trial over discount), product loops, premium feel (undo, error recovery, cross-screen consistency, designed failure/offline/empty states, breaking the product on purpose), and reading intent (when a click should wait, submenu aim triangles, tooltip warm-up, drag auto-scroll, act-then-undo over confirm modals, autosave, commit on release). Pair with the project's `design-system` skill when one exists; it names the tokens, components and commands.
+description: Project-independent UI/UX rules. Use whenever creating, editing, designing, or reviewing any user-facing surface (pages, forms, modals, components, dashboards, dialogs, panels, tables, paywalls, anything that renders). Covers the reuse procedure, token discipline, scannable layout (edge-locked alignment, relative emphasis, container nesting, row differentiation), optimistic-update policy, required button/input states, feedback and wait-time UX, modern CSS (floating panels, anchor positioning, scroll-margin, scroll-snap, `:user-invalid`, `:focus-visible`, the `lh` unit, `field-sizing: content`), rendered-UI verification, dashboard density, behavioral design, paywall structure (one offer, annual default, trial over discount), product loops, premium feel (undo, error recovery, cross-screen consistency, designed failure/offline/empty states, breaking the product on purpose), reading intent (when a click should wait, submenu aim triangles, tooltip warm-up, drag auto-scroll, act-then-undo over confirm modals, autosave, commit on release), and trust around money (looking established, fees shown before payment, irreversible-loss warnings, designed transaction status screens, freeze and hide-balance switches, reachable human support). Pair with the project's `design-system` skill when one exists; it names the tokens, components and commands.
 ---
 
 # UI/UX guide
@@ -109,6 +109,7 @@ Inputs additionally need:
 - **Streaming reveal** for AI or generated content, word by word or block by block. It builds trust; instant output feels untrustworthy for generative work.
 - **Progress that accelerates**: bias the progress bar so it feels faster near the end.
 - **Occupy the wait**: status text that changes ("Connecting…" → "Loading messages…" → "Almost done…") beats a static spinner on waits over 2s.
+- **Explain the wait.** An unexplained wait feels longer than an explained one (Maister, 1985). Say why it's waiting and what comes next, and show countable progress as a count ("2 of 8 confirmations") instead of an indeterminate spinner. Money states get their own screens (§20).
 
 ## 9. Depth & overlays
 
@@ -364,6 +365,11 @@ Combine with `:has()` for precise targeting (`.list:not(:has(.item))` means empt
 - A confirm modal on a reversible action where acting at once plus an Undo toast would do (§19).
 - A Save/Cancel footer on a settings page whose fields could each save on change (§19).
 - An action button that fires on `pointerdown` or `mousedown` instead of `click` (§19).
+- A fee, exchange rate or minimum that first appears at the last step of a payment flow (§20).
+- A transaction state that says only "Pending" or "Processing", with no reason, no next step and no way to reach a person (§20).
+- A risk of irreversible loss (wrong network, wrong account number) explained only in a tooltip, help page or the terms (§20).
+- Freeze, spending limits or balance hiding buried in settings instead of one tap from the main view (§20).
+- Reward promos scattered across screens instead of one rewards history (§20).
 
 ## 14. Dashboard design principles
 
@@ -545,3 +551,34 @@ Waiting, inferring and acting first all guess how sure the user is. Committing o
 - **Buttons fire on release.** Bind actions to `click`, which fires only when press and release land on the same element. Pressing, sliding off and releasing cancels. That is a built-in cancel on every button, and an action bound to `pointerdown` or `mousedown` throws it away. A camera shutter works the same way: half press focuses and shows the shot, full press takes it.
 - **Menu triggers open on press.** A button that opens a menu, select or popover opens on `pointerdown`, so the user can press, drag to an item and release on it in one motion. Releasing over the trigger leaves the menu open. These look like buttons but behave as toggles, which is why the two follow opposite rules. Check that the open menu commits the item under the pointer on release.
 - **Gestures show how close they are to committing.** Pull to refresh and swipe to delete track the finger and show progress toward the threshold (the spinner fills, the row reveals its red action). Released short of the threshold, they spring back and nothing happens. Cmd-Tab on macOS shows the switcher while held, commits on key release, and Escape cancels before that. Any press-and-hold interaction follows the same rule: show the pending outcome, commit on release, and let Escape or moving back cancel.
+
+## 20. Trust with money: real, safe, in control
+
+Someone deciding whether to hand an app their paycheck asks three questions, in this order. Is this company real? What happens if something goes wrong? Once my money is in, am I still in control? Every screen of a money product (signup, deposit, checkout, wallet, payout, billing) answers one of them. Zipzap redesigned the crypto neobank Soulcard around these questions. Afterwards users loaded 79% more money onto their cards and successful card deposits rose 71%. None of this is specific to crypto. A payroll tool, a marketplace payout screen and a SaaS billing page face the same three questions at lower stakes.
+
+### Is it real? The surface is the evidence
+
+A first-time visitor can't check your licenses from a landing page, so they judge by how it looks. The question they're asking is whether the company will still exist in a year, not whether the design is fun.
+
+- **Finished beats playful.** A rushed or dated surface reads as a company that might fold. One brand, one type system and one set of components across site, onboarding and app (§18 connective tissue) are the cheapest proof of permanence.
+- **Answer objections before they're asked.** The first screen ends on plain, checkable promises: "Card issued in seconds. No annual fees. Refund anytime." Stating terms unprompted reads as having nothing to hide. Write only promises the product keeps, because one broken promise discredits the rest.
+- **Show ordinary life.** Picture the product where money actually moves: groceries, rent, a taxi, a restaurant bill. A product shown only inside its niche reads as a side account, not a place for a salary.
+- **Give ownership before asking for money.** Pick the one object the user will own (the card, the account, the workspace) and make it the thread. It appears on the landing page, choosing it is the first onboarding step, and the app puts it front and center. By the time the deposit form appears, it already feels like theirs. In the mug study (Kahneman, Knetsch and Thaler, 1990), people handed a mug asked more than twice what others would pay for it. That is the same endowment effect a free trial uses (§16 Paywalls).
+
+### What if it goes wrong? Design out the surprises
+
+The first deposit is the first time the user hands over real money, and their worry is simple: what if I send it, something breaks, and I can't get it back? Each surprise turns a natural next step into a gamble. A bare form and a spinner do nothing for that worry.
+
+- **Fee and received amount before the pay button.** Show what leaves, the fee, and what arrives ("You send $100.00, fee $1.50, card receives $98.50"), right-aligned (§4) and updated as the amount changes. Never reveal a fee, rate or minimum at the last step. Hiding fees until checkout made StubHub buyers 14% more likely to purchase, because walking away after the effort feels like a loss. That wins one purchase. A fee found at the end reads as a trick, and nobody makes a second deposit with an app that tricked them.
+- **Put the irreversible risk beside the field that causes it.** When one wrong input can lose money for good (wrong network, wrong account number, wrong IBAN), state the consequence in plain words next to that input: "Send on the wrong network and your money may be lost or take weeks to recover." Never only in a tooltip, a help page or the terms. People stress more over an uncertain outcome than over a certain bad one (de Berker et al., UCL, 2016), so a definite warning calms more than a vague maybe. Where code can prevent the mistake, prevent it too: validate the address format for the selected network, and preselect the network when only one works.
+- **Status screens are the product.** Many users pay through Apple Pay or Google Pay and open the app only to check on their money. Did my deposit land? Where did that payment go? Give every transaction state its own designed screen. Soulcard has 15, among them processing, on hold and declined. Each one says what happened, why, what comes next and roughly when, and links to a person (below). "Pending" alone is not a status. "Your transfer is temporarily on hold while we complete routine checks", with a Contact support button, is one. Count the progress where it's countable (§8). Get these screens right and people wait instead of flooding the support inbox.
+- **Break the money path on purpose** (§18). Decline the card, put a transfer on hold, send on the wrong network in a test environment, and look at every screen that renders.
+
+### Am I still in control? Off switches within reach
+
+Once the money is in, the worry changes. In Glass and Singer's 1972 noise study, people given a button that stopped the noise mostly never pressed it, yet knowing it was there made the noise hurt their work less. Most users never freeze their card either. The switch still has to be one tap away.
+
+- **Controls on the main view, not in settings.** Freeze card, lock online payments, set spending limits, reveal PIN: each is one tap from the home screen, and on web freezing sits on the dashboard. Freezing is reversible, so it takes no confirm dialog (§19). It is also not optimistic (§5). Show "Frozen" only after the server confirms, since a card that displays frozen while it still works is worse than a half-second spinner.
+- **Let the user hide the balance.** One toggle masks every balance and amount, and the choice persists across sessions. Render a mask ("••••") rather than a CSS blur over the real figure, so the number stays out of the DOM, the clipboard and screen reader output. On mobile, hiding when the phone is laid face down is a cheap extra. A large balance on screen in a café is a real risk: 2025 set a record for wrench attacks, where criminals physically coerce crypto holders into handing over their coins.
+- **Rewards get one home.** When payment runs through a phone wallet, the app and its reward are invisible at the moment of purchase. Plastering rewards over every screen to compensate reads as a scam. Give them one history that lists what each purchase earned ("$0.85 back on Uber"), so every visit shows a quiet reason to keep using the card.
+- **A person one message away.** Support is reachable from every status screen and from the account menu, in channels users already use (email plus a chat app such as WhatsApp or Telegram), and answered by people. Like the noise button, most users never press it. Knowing it's there is what lets them leave the money in.
